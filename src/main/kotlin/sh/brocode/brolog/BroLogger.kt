@@ -1,5 +1,6 @@
 package sh.brocode.brolog
 
+import org.slf4j.MDC
 import org.slf4j.helpers.MarkerIgnoringBase
 
 class BroLogger : MarkerIgnoringBase() {
@@ -51,7 +52,10 @@ class BroLogger : MarkerIgnoringBase() {
     }
 
     override fun info(msg: String) {
+        val mdc: MutableMap<String, String>? = MDC.getCopyOfContextMap()
+        println("Bro message:")
         println(msg)
+        println(mdc)
     }
 
     override fun info(format: String, arg1: Any) {

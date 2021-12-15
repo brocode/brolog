@@ -5,6 +5,10 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.slf4j.MDC
 import org.slf4j.helpers.MarkerIgnoringBase
+import org.slf4j.helpers.MessageFormatter
+import java.io.ByteArrayOutputStream
+import java.io.PrintStream
+import java.nio.charset.StandardCharsets
 import java.time.Instant
 
 enum class LogLevel {
@@ -22,6 +26,7 @@ data class LogEntry(
     val message: String,
     val mdc: Map<String, String?>?,
     val level: LogLevel,
+    val exception: String?,
 )
 
 data class BroLogger(
@@ -93,6 +98,9 @@ data class BroLogger(
     }
 
     override fun info(format: String, arg1: Any, arg2: Any) {
+        if (warnEnabled) {
+            write(createEntry(format, LogLevel.WARN, arrayOf(arg1, arg2)))
+        }
     }
 
     override fun info(format: String, vararg argArray: Any) {
@@ -149,15 +157,29 @@ data class BroLogger(
         println(Json.encodeToString(entry))
     }
 
-    private fun createEntry(msg: String, level: LogLevel): LogEntry {
+    private fun createEntry(format: String, level: LogLevel, argArray: Array<Any> = emptyArray()): LogEntry {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
+
+        val (message, formattedException) = if (argArray.isEmpty()) {
+            Pair(format, null)
+        } else {
+            val formattedMessage = MessageFormatter.arrayFormat(format, argArray)
+            val throwable: Throwable? = formattedMessage.throwable
+            val formattedExcetion = throwable?.let {
+                val out = ByteArrayOutputStream()
+                it.printStackTrace(PrintStream(out))
+                String(out.toByteArray(), StandardCharsets.UTF_8)
+            }
+            Pair(formattedMessage.message, formattedExcetion)
+        }
 
         return LogEntry(
             logger = name,
             time = Instant.now().toString(),
-            message = msg,
+            message = message,
             mdc = mdc,
             level = level,
+            exception = formattedException,
         )
     }
 }

@@ -16,7 +16,11 @@ class LoggerTest : FunSpec() {
             MDC.put("test", "fkbr")
             logger.info("log 1")
             MDC.put("sxoe", "kuci")
+            logger.trace("log 2")
+            logger.debug("log 2")
             logger.info("log 2")
+            logger.warn("log 2")
+            logger.error("log 2")
             true shouldBe true
         }
     }

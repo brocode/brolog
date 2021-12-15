@@ -7,23 +7,42 @@ import org.slf4j.MDC
 import org.slf4j.helpers.MarkerIgnoringBase
 import java.time.Instant
 
+enum class LogLevel {
+    TRACE,
+    DEBUG,
+    INFO,
+    WARN,
+    ERROR,
+}
+
 @Serializable
-data class LogMessage(
+data class LogEntry(
     val time: String,
     val logger: String,
     val message: String,
     val mdc: Map<String, String?>?,
+    val level: LogLevel,
 )
 
-data class BroLogger(private val name: String) : MarkerIgnoringBase() {
+data class BroLogger(
+    private val name: String,
+    private val traceEnabled: Boolean,
+    private val debugEnabled: Boolean,
+    private val infoEnabled: Boolean,
+    private val warnEnabled: Boolean,
+    private val errorEnabled: Boolean,
+) : MarkerIgnoringBase() {
 
     override fun getName(): String = name
 
     override fun isTraceEnabled(): Boolean {
-        return false
+        return traceEnabled
     }
 
     override fun trace(msg: String) {
+        if (traceEnabled) {
+            write(createEntry(msg, LogLevel.TRACE))
+        }
     }
 
     override fun trace(format: String, arg: Any) {
@@ -39,10 +58,13 @@ data class BroLogger(private val name: String) : MarkerIgnoringBase() {
     }
 
     override fun isDebugEnabled(): Boolean {
-        return false
+        return debugEnabled
     }
 
     override fun debug(msg: String) {
+        if (debugEnabled) {
+            write(createEntry(msg, LogLevel.DEBUG))
+        }
     }
 
     override fun debug(format: String, arg: Any) {
@@ -58,18 +80,13 @@ data class BroLogger(private val name: String) : MarkerIgnoringBase() {
     }
 
     override fun isInfoEnabled(): Boolean {
-        return false
+        return infoEnabled
     }
 
     override fun info(msg: String) {
-        val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
-        val message = LogMessage(
-            logger = name,
-            time = Instant.now().toString(),
-            message = msg,
-            mdc = mdc,
-        )
-        println(Json.encodeToString(message))
+        if (infoEnabled) {
+            write(createEntry(msg, LogLevel.INFO))
+        }
     }
 
     override fun info(format: String, arg1: Any) {
@@ -85,10 +102,13 @@ data class BroLogger(private val name: String) : MarkerIgnoringBase() {
     }
 
     override fun isWarnEnabled(): Boolean {
-        return false
+        return warnEnabled
     }
 
     override fun warn(msg: String) {
+        if (warnEnabled) {
+            write(createEntry(msg, LogLevel.WARN))
+        }
     }
 
     override fun warn(format: String, arg1: Any) {
@@ -104,10 +124,13 @@ data class BroLogger(private val name: String) : MarkerIgnoringBase() {
     }
 
     override fun isErrorEnabled(): Boolean {
-        return false
+        return errorEnabled
     }
 
     override fun error(msg: String) {
+        if (errorEnabled) {
+            write(createEntry(msg, LogLevel.ERROR))
+        }
     }
 
     override fun error(format: String, arg1: Any) {
@@ -120,5 +143,21 @@ data class BroLogger(private val name: String) : MarkerIgnoringBase() {
     }
 
     override fun error(msg: String, t: Throwable) {
+    }
+
+    private fun write(entry: LogEntry) {
+        println(Json.encodeToString(entry))
+    }
+
+    private fun createEntry(msg: String, level: LogLevel): LogEntry {
+        val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
+
+        return LogEntry(
+            logger = name,
+            time = Instant.now().toString(),
+            message = msg,
+            mdc = mdc,
+            level = level,
+        )
     }
 }

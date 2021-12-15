@@ -11,8 +11,8 @@ class LibraryTest : FunSpec() {
     }
     init {
 
-        test("Test") {
-            logger.info("test")
+        test("fkbr") {
+            logger.info("fkbr")
             true shouldBe true
         }
     }

@@ -1,7 +1,16 @@
 package sh.brocode.brolog
 
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.slf4j.MDC
 import org.slf4j.helpers.MarkerIgnoringBase
+
+@Serializable
+data class LogMessage(
+    val message: String,
+    val mdc: Map<String, String?>?,
+)
 
 class BroLogger : MarkerIgnoringBase() {
 
@@ -52,10 +61,12 @@ class BroLogger : MarkerIgnoringBase() {
     }
 
     override fun info(msg: String) {
-        val mdc: MutableMap<String, String>? = MDC.getCopyOfContextMap()
-        println("Bro message:")
-        println(msg)
-        println(mdc)
+        val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
+        val message = LogMessage(
+            message = msg,
+            mdc = mdc,
+        )
+        println(Json.encodeToString(message))
     }
 
     override fun info(format: String, arg1: Any) {

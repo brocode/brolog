@@ -24,6 +24,7 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    outputs.upToDateWhen { false }
 }
 
 val spotlessCheckOrFormat = tasks.register("spotlessCheckOrFormat") {

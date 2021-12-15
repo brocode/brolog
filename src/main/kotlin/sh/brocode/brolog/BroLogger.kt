@@ -29,8 +29,50 @@ data class LogEntry(
     val exception: String?,
 )
 
-data class BroLogger(
-    private val name: String,
+class JsonBroLogger(
+    loggerName: String,
+    traceEnabled: Boolean,
+    debugEnabled: Boolean,
+    infoEnabled: Boolean,
+    warnEnabled: Boolean,
+    errorEnabled: Boolean,
+) : BroLogger(
+    loggerName = loggerName,
+    traceEnabled = traceEnabled,
+    debugEnabled = debugEnabled,
+    infoEnabled = infoEnabled,
+    warnEnabled = warnEnabled,
+    errorEnabled = errorEnabled,
+) {
+
+    override fun write(entry: LogEntry) {
+        println(Json.encodeToString(entry))
+    }
+}
+
+class SimpleBroLogger(
+    loggerName: String,
+    traceEnabled: Boolean,
+    debugEnabled: Boolean,
+    infoEnabled: Boolean,
+    warnEnabled: Boolean,
+    errorEnabled: Boolean,
+) : BroLogger(
+    loggerName = loggerName,
+    traceEnabled = traceEnabled,
+    debugEnabled = debugEnabled,
+    infoEnabled = infoEnabled,
+    warnEnabled = warnEnabled,
+    errorEnabled = errorEnabled,
+) {
+
+    override fun write(entry: LogEntry) {
+        println("TODO: $entry")
+    }
+}
+
+abstract class BroLogger(
+    loggerName: String,
     private val traceEnabled: Boolean,
     private val debugEnabled: Boolean,
     private val infoEnabled: Boolean,
@@ -38,7 +80,9 @@ data class BroLogger(
     private val errorEnabled: Boolean,
 ) : MarkerIgnoringBase() {
 
-    override fun getName(): String = name
+    init {
+        super.name = loggerName
+    }
 
     override fun isTraceEnabled(): Boolean {
         return traceEnabled
@@ -153,9 +197,7 @@ data class BroLogger(
     override fun error(msg: String, t: Throwable) {
     }
 
-    private fun write(entry: LogEntry) {
-        println(Json.encodeToString(entry))
-    }
+    protected abstract fun write(entry: LogEntry)
 
     private fun createEntry(format: String, level: LogLevel, argArray: Array<Any> = emptyArray()): LogEntry {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()

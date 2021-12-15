@@ -65,8 +65,10 @@ class LoggerTest : FunSpec() {
                 logger.info("log {}", 1, exception)
             }
 
-            output.shouldContainJsonKeyValue("$.message", "log 1")
-            output.shouldContainJsonKey("$.exception")
+            assertSoftly {
+                output.shouldContainJsonKeyValue("$.message", "log 1")
+                output.shouldContainJsonKey("$.exception")
+            }
         }
     }
 }

@@ -10,15 +10,14 @@ import java.time.Instant
 @Serializable
 data class LogMessage(
     val time: String,
+    val logger: String,
     val message: String,
     val mdc: Map<String, String?>?,
 )
 
-class BroLogger : MarkerIgnoringBase() {
+data class BroLogger(private val name: String) : MarkerIgnoringBase() {
 
-    override fun getName(): String {
-        return "NOP"
-    }
+    override fun getName(): String = name
 
     override fun isTraceEnabled(): Boolean {
         return false
@@ -65,6 +64,7 @@ class BroLogger : MarkerIgnoringBase() {
     override fun info(msg: String) {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
         val message = LogMessage(
+            logger = name,
             time = Instant.now().toString(),
             message = msg,
             mdc = mdc,

@@ -5,9 +5,11 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.slf4j.MDC
 import org.slf4j.helpers.MarkerIgnoringBase
+import java.time.Instant
 
 @Serializable
 data class LogMessage(
+    val time: String,
     val message: String,
     val mdc: Map<String, String?>?,
 )
@@ -63,6 +65,7 @@ class BroLogger : MarkerIgnoringBase() {
     override fun info(msg: String) {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
         val message = LogMessage(
+            time = Instant.now().toString(),
             message = msg,
             mdc = mdc,
         )

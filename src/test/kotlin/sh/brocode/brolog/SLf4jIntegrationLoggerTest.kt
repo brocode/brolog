@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory
 import org.slf4j.MDC
 import java.lang.RuntimeException
 
-class LoggerTest : FunSpec() {
+class SLf4jIntegrationLoggerTest : FunSpec() {
 
     companion object {
-        val logger = LoggerFactory.getLogger(LoggerTest::class.java)
+        val logger = LoggerFactory.getLogger(SLf4jIntegrationLoggerTest::class.java)
     }
 
     init {

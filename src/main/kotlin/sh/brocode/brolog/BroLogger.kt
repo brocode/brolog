@@ -1,8 +1,5 @@
 package sh.brocode.brolog
 
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import org.slf4j.MDC
 import org.slf4j.helpers.MarkerIgnoringBase
 import org.slf4j.helpers.MessageFormatter
@@ -10,75 +7,6 @@ import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.nio.charset.StandardCharsets
 import java.time.Instant
-
-enum class LogLevel {
-    TRACE,
-    DEBUG,
-    INFO,
-    WARN,
-    ERROR,
-}
-
-@Serializable
-data class LogEntry(
-    val time: String,
-    val logger: String,
-    val message: String,
-    val mdc: Map<String, String?>?,
-    val level: LogLevel,
-    val exception: String?,
-)
-
-class JsonBroLogger(
-    loggerName: String,
-    traceEnabled: Boolean,
-    debugEnabled: Boolean,
-    infoEnabled: Boolean,
-    warnEnabled: Boolean,
-    errorEnabled: Boolean,
-) : BroLogger(
-    loggerName = loggerName,
-    traceEnabled = traceEnabled,
-    debugEnabled = debugEnabled,
-    infoEnabled = infoEnabled,
-    warnEnabled = warnEnabled,
-    errorEnabled = errorEnabled,
-) {
-
-    override fun write(entry: LogEntry) {
-        println(Json.encodeToString(entry))
-    }
-}
-
-class SimpleBroLogger(
-    loggerName: String,
-    traceEnabled: Boolean,
-    debugEnabled: Boolean,
-    infoEnabled: Boolean,
-    warnEnabled: Boolean,
-    errorEnabled: Boolean,
-) : BroLogger(
-    loggerName = loggerName,
-    traceEnabled = traceEnabled,
-    debugEnabled = debugEnabled,
-    infoEnabled = infoEnabled,
-    warnEnabled = warnEnabled,
-    errorEnabled = errorEnabled,
-) {
-
-    override fun write(entry: LogEntry) {
-        val output = """
-            |# ${entry.level} ${entry.logger}
-            |${entry.message}
-        """.trimMargin()
-
-        if (entry.exception != null) {
-            println(output + "\n" + entry.exception)
-        } else {
-            println(output)
-        }
-    }
-}
 
 abstract class BroLogger(
     loggerName: String,

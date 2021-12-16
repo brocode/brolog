@@ -18,7 +18,7 @@ class LoggerTest : FunSpec() {
 
     init {
 
-        test("simple log") {
+        test("simple message") {
 
             val output = tapSystemOut {
                 logger.warn("msg")

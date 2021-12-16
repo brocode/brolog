@@ -67,7 +67,16 @@ class SimpleBroLogger(
 ) {
 
     override fun write(entry: LogEntry) {
-        println("TODO: $entry")
+        val output = """
+            |# ${entry.level} ${entry.logger}
+            |${entry.message}
+        """.trimMargin()
+
+        if (entry.exception != null) {
+            println(output + "\n" + entry.exception)
+        } else {
+            println(output)
+        }
     }
 }
 

@@ -10,11 +10,7 @@ import io.kotest.matchers.string.shouldStartWith
 class BroLoggerTest : FunSpec() {
     class TestLogger : BroLogger(
         loggerName = "test",
-        traceEnabled = true,
-        debugEnabled = true,
-        infoEnabled = true,
-        warnEnabled = true,
-        errorEnabled = true,
+        logLevel = LogLevel.TRACE,
     ) {
         var lastEntry: LogEntry? = null
 

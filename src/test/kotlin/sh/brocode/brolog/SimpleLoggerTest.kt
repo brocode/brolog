@@ -9,11 +9,7 @@ class SimpleLoggerTest : FunSpec() {
     companion object {
         val logger = SimpleBroLogger(
             loggerName = "test",
-            traceEnabled = true,
-            debugEnabled = true,
-            infoEnabled = true,
-            warnEnabled = true,
-            errorEnabled = true,
+            logLevel = LogLevel.TRACE,
         )
     }
 

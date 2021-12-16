@@ -104,15 +104,27 @@ abstract class BroLogger(
     }
 
     override fun trace(format: String, arg: Any) {
+        if (traceEnabled) {
+            write(createEntry(format, LogLevel.TRACE, arrayOf(arg)))
+        }
     }
 
     override fun trace(format: String, arg1: Any, arg2: Any) {
+        if (traceEnabled) {
+            write(createEntry(format, LogLevel.TRACE, arrayOf(arg1, arg2)))
+        }
     }
 
     override fun trace(format: String, vararg argArray: Any) {
+        if (traceEnabled) {
+            write(createEntry(format, LogLevel.TRACE, argArray))
+        }
     }
 
     override fun trace(msg: String, t: Throwable) {
+        if (traceEnabled) {
+            write(createEntry(msg, LogLevel.TRACE, t))
+        }
     }
 
     override fun isDebugEnabled(): Boolean {
@@ -126,15 +138,27 @@ abstract class BroLogger(
     }
 
     override fun debug(format: String, arg: Any) {
+        if (debugEnabled) {
+            write(createEntry(format, LogLevel.DEBUG, arrayOf(arg)))
+        }
     }
 
     override fun debug(format: String, arg1: Any, arg2: Any) {
+        if (debugEnabled) {
+            write(createEntry(format, LogLevel.DEBUG, arrayOf(arg1, arg2)))
+        }
     }
 
     override fun debug(format: String, vararg argArray: Any) {
+        if (debugEnabled) {
+            write(createEntry(format, LogLevel.DEBUG, argArray))
+        }
     }
 
     override fun debug(msg: String, t: Throwable) {
+        if (debugEnabled) {
+            write(createEntry(msg, LogLevel.DEBUG, t))
+        }
     }
 
     override fun isInfoEnabled(): Boolean {
@@ -148,18 +172,27 @@ abstract class BroLogger(
     }
 
     override fun info(format: String, arg1: Any) {
+        if (infoEnabled) {
+            write(createEntry(format, LogLevel.INFO, arrayOf(arg1)))
+        }
     }
 
     override fun info(format: String, arg1: Any, arg2: Any) {
-        if (warnEnabled) {
-            write(createEntry(format, LogLevel.WARN, arrayOf(arg1, arg2)))
+        if (infoEnabled) {
+            write(createEntry(format, LogLevel.INFO, arrayOf(arg1, arg2)))
         }
     }
 
     override fun info(format: String, vararg argArray: Any) {
+        if (infoEnabled) {
+            write(createEntry(format, LogLevel.INFO, argArray))
+        }
     }
 
     override fun info(msg: String, t: Throwable) {
+        if (infoEnabled) {
+            write(createEntry(msg, LogLevel.INFO, t))
+        }
     }
 
     override fun isWarnEnabled(): Boolean {
@@ -173,15 +206,27 @@ abstract class BroLogger(
     }
 
     override fun warn(format: String, arg1: Any) {
+        if (warnEnabled) {
+            write(createEntry(format, LogLevel.WARN, arrayOf(arg1)))
+        }
     }
 
     override fun warn(format: String, arg1: Any, arg2: Any) {
+        if (warnEnabled) {
+            write(createEntry(format, LogLevel.WARN, arrayOf(arg1, arg2)))
+        }
     }
 
     override fun warn(format: String, vararg argArray: Any) {
+        if (warnEnabled) {
+            write(createEntry(format, LogLevel.WARN, argArray))
+        }
     }
 
     override fun warn(msg: String, t: Throwable) {
+        if (warnEnabled) {
+            write(createEntry(msg, LogLevel.WARN, t))
+        }
     }
 
     override fun isErrorEnabled(): Boolean {
@@ -195,42 +240,79 @@ abstract class BroLogger(
     }
 
     override fun error(format: String, arg1: Any) {
+        if (errorEnabled) {
+            write(createEntry(format, LogLevel.ERROR, arrayOf(arg1)))
+        }
     }
 
     override fun error(format: String, arg1: Any, arg2: Any) {
+        if (errorEnabled) {
+            write(createEntry(format, LogLevel.ERROR, arrayOf(arg1, arg2)))
+        }
     }
 
     override fun error(format: String, vararg argArray: Any) {
+        if (errorEnabled) {
+            write(createEntry(format, LogLevel.ERROR, argArray))
+        }
     }
 
     override fun error(msg: String, t: Throwable) {
+        if (errorEnabled) {
+            write(createEntry(msg, LogLevel.ERROR, t))
+        }
     }
 
     protected abstract fun write(entry: LogEntry)
 
-    private fun createEntry(format: String, level: LogLevel, argArray: Array<Any> = emptyArray()): LogEntry {
+    private fun createEntry(msg: String, level: LogLevel): LogEntry {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
-
-        val (message, formattedException) = if (argArray.isEmpty()) {
-            Pair(format, null)
-        } else {
-            val formattedMessage = MessageFormatter.arrayFormat(format, argArray)
-            val throwable: Throwable? = formattedMessage.throwable
-            val formattedExcetion = throwable?.let {
-                val out = ByteArrayOutputStream()
-                it.printStackTrace(PrintStream(out))
-                String(out.toByteArray(), StandardCharsets.UTF_8)
-            }
-            Pair(formattedMessage.message, formattedExcetion)
-        }
 
         return LogEntry(
             logger = name,
             time = Instant.now().toString(),
-            message = message,
+            message = msg,
+            mdc = mdc,
+            level = level,
+            exception = null,
+        )
+    }
+
+    private fun createEntry(format: String, level: LogLevel, argArray: Array<out Any>): LogEntry {
+        val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
+
+        val formattedMessage = MessageFormatter.arrayFormat(format, argArray)
+        val throwable: Throwable? = formattedMessage.throwable
+        val formattedException = throwable?.let(::formatException)
+
+        return LogEntry(
+            logger = name,
+            time = Instant.now().toString(),
+            message = formattedMessage.message,
             mdc = mdc,
             level = level,
             exception = formattedException,
         )
+    }
+
+    private fun createEntry(msg: String, level: LogLevel, throwable: Throwable): LogEntry {
+        val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
+
+        val formattedException = formatException(throwable)
+
+        return LogEntry(
+            logger = name,
+            time = Instant.now().toString(),
+            message = msg,
+            mdc = mdc,
+            level = level,
+            exception = formattedException,
+        )
+    }
+
+    private fun formatException(t: Throwable): String {
+        val out = ByteArrayOutputStream()
+        t.printStackTrace(PrintStream(out))
+        return String(out.toByteArray(), StandardCharsets.UTF_8)
     }
 }

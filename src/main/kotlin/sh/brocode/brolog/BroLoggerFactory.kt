@@ -10,23 +10,15 @@ class BroLoggerFactory : ILoggerFactory {
             ?: false
 
     override fun getLogger(name: String): Logger {
-        if (simpleMode) {
-            return SimpleBroLogger(
+        return if (simpleMode) {
+            SimpleBroLogger(
                 loggerName = name,
-                traceEnabled = true,
-                debugEnabled = true,
-                infoEnabled = true,
-                warnEnabled = true,
-                errorEnabled = true,
+                logLevel = LogLevel.TRACE,
             )
         } else {
-            return JsonBroLogger(
+            JsonBroLogger(
                 loggerName = name,
-                traceEnabled = true,
-                debugEnabled = true,
-                infoEnabled = true,
-                warnEnabled = true,
-                errorEnabled = true,
+                logLevel = LogLevel.TRACE,
             )
         }
     }

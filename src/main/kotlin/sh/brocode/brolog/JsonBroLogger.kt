@@ -5,18 +5,10 @@ import kotlinx.serialization.json.Json
 
 class JsonBroLogger(
     loggerName: String,
-    traceEnabled: Boolean,
-    debugEnabled: Boolean,
-    infoEnabled: Boolean,
-    warnEnabled: Boolean,
-    errorEnabled: Boolean,
+    logLevel: LogLevel,
 ) : BroLogger(
     loggerName = loggerName,
-    traceEnabled = traceEnabled,
-    debugEnabled = debugEnabled,
-    infoEnabled = infoEnabled,
-    warnEnabled = warnEnabled,
-    errorEnabled = errorEnabled,
+    logLevel = logLevel,
 ) {
 
     override fun write(entry: LogEntry) {

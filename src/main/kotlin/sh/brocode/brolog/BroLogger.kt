@@ -10,11 +10,7 @@ import java.time.Instant
 
 abstract class BroLogger(
     loggerName: String,
-    private val traceEnabled: Boolean,
-    private val debugEnabled: Boolean,
-    private val infoEnabled: Boolean,
-    private val warnEnabled: Boolean,
-    private val errorEnabled: Boolean,
+    private val logLevel: LogLevel,
 ) : MarkerIgnoringBase() {
 
     init {
@@ -22,171 +18,171 @@ abstract class BroLogger(
     }
 
     override fun isTraceEnabled(): Boolean {
-        return traceEnabled
+        return logLevel.traceEnabled
     }
 
     override fun trace(msg: String) {
-        if (traceEnabled) {
+        if (logLevel.traceEnabled) {
             write(createEntry(msg, LogLevel.TRACE))
         }
     }
 
     override fun trace(format: String, arg: Any) {
-        if (traceEnabled) {
+        if (logLevel.traceEnabled) {
             write(createEntry(format, LogLevel.TRACE, arrayOf(arg)))
         }
     }
 
     override fun trace(format: String, arg1: Any, arg2: Any) {
-        if (traceEnabled) {
+        if (logLevel.traceEnabled) {
             write(createEntry(format, LogLevel.TRACE, arrayOf(arg1, arg2)))
         }
     }
 
     override fun trace(format: String, vararg argArray: Any) {
-        if (traceEnabled) {
+        if (logLevel.traceEnabled) {
             write(createEntry(format, LogLevel.TRACE, argArray))
         }
     }
 
     override fun trace(msg: String, t: Throwable) {
-        if (traceEnabled) {
+        if (logLevel.traceEnabled) {
             write(createEntry(msg, LogLevel.TRACE, t))
         }
     }
 
     override fun isDebugEnabled(): Boolean {
-        return debugEnabled
+        return logLevel.debugEnabled
     }
 
     override fun debug(msg: String) {
-        if (debugEnabled) {
+        if (logLevel.debugEnabled) {
             write(createEntry(msg, LogLevel.DEBUG))
         }
     }
 
     override fun debug(format: String, arg: Any) {
-        if (debugEnabled) {
+        if (logLevel.debugEnabled) {
             write(createEntry(format, LogLevel.DEBUG, arrayOf(arg)))
         }
     }
 
     override fun debug(format: String, arg1: Any, arg2: Any) {
-        if (debugEnabled) {
+        if (logLevel.debugEnabled) {
             write(createEntry(format, LogLevel.DEBUG, arrayOf(arg1, arg2)))
         }
     }
 
     override fun debug(format: String, vararg argArray: Any) {
-        if (debugEnabled) {
+        if (logLevel.debugEnabled) {
             write(createEntry(format, LogLevel.DEBUG, argArray))
         }
     }
 
     override fun debug(msg: String, t: Throwable) {
-        if (debugEnabled) {
+        if (logLevel.debugEnabled) {
             write(createEntry(msg, LogLevel.DEBUG, t))
         }
     }
 
     override fun isInfoEnabled(): Boolean {
-        return infoEnabled
+        return logLevel.infoEnabled
     }
 
     override fun info(msg: String) {
-        if (infoEnabled) {
+        if (logLevel.infoEnabled) {
             write(createEntry(msg, LogLevel.INFO))
         }
     }
 
     override fun info(format: String, arg1: Any) {
-        if (infoEnabled) {
+        if (logLevel.infoEnabled) {
             write(createEntry(format, LogLevel.INFO, arrayOf(arg1)))
         }
     }
 
     override fun info(format: String, arg1: Any, arg2: Any) {
-        if (infoEnabled) {
+        if (logLevel.infoEnabled) {
             write(createEntry(format, LogLevel.INFO, arrayOf(arg1, arg2)))
         }
     }
 
     override fun info(format: String, vararg argArray: Any) {
-        if (infoEnabled) {
+        if (logLevel.infoEnabled) {
             write(createEntry(format, LogLevel.INFO, argArray))
         }
     }
 
     override fun info(msg: String, t: Throwable) {
-        if (infoEnabled) {
+        if (logLevel.infoEnabled) {
             write(createEntry(msg, LogLevel.INFO, t))
         }
     }
 
     override fun isWarnEnabled(): Boolean {
-        return warnEnabled
+        return logLevel.warnEnabled
     }
 
     override fun warn(msg: String) {
-        if (warnEnabled) {
+        if (logLevel.warnEnabled) {
             write(createEntry(msg, LogLevel.WARN))
         }
     }
 
     override fun warn(format: String, arg1: Any) {
-        if (warnEnabled) {
+        if (logLevel.warnEnabled) {
             write(createEntry(format, LogLevel.WARN, arrayOf(arg1)))
         }
     }
 
     override fun warn(format: String, arg1: Any, arg2: Any) {
-        if (warnEnabled) {
+        if (logLevel.warnEnabled) {
             write(createEntry(format, LogLevel.WARN, arrayOf(arg1, arg2)))
         }
     }
 
     override fun warn(format: String, vararg argArray: Any) {
-        if (warnEnabled) {
+        if (logLevel.warnEnabled) {
             write(createEntry(format, LogLevel.WARN, argArray))
         }
     }
 
     override fun warn(msg: String, t: Throwable) {
-        if (warnEnabled) {
+        if (logLevel.warnEnabled) {
             write(createEntry(msg, LogLevel.WARN, t))
         }
     }
 
     override fun isErrorEnabled(): Boolean {
-        return errorEnabled
+        return logLevel.errorEnabled
     }
 
     override fun error(msg: String) {
-        if (errorEnabled) {
+        if (logLevel.errorEnabled) {
             write(createEntry(msg, LogLevel.ERROR))
         }
     }
 
     override fun error(format: String, arg1: Any) {
-        if (errorEnabled) {
+        if (logLevel.errorEnabled) {
             write(createEntry(format, LogLevel.ERROR, arrayOf(arg1)))
         }
     }
 
     override fun error(format: String, arg1: Any, arg2: Any) {
-        if (errorEnabled) {
+        if (logLevel.errorEnabled) {
             write(createEntry(format, LogLevel.ERROR, arrayOf(arg1, arg2)))
         }
     }
 
     override fun error(format: String, vararg argArray: Any) {
-        if (errorEnabled) {
+        if (logLevel.errorEnabled) {
             write(createEntry(format, LogLevel.ERROR, argArray))
         }
     }
 
     override fun error(msg: String, t: Throwable) {
-        if (errorEnabled) {
+        if (logLevel.errorEnabled) {
             write(createEntry(msg, LogLevel.ERROR, t))
         }
     }

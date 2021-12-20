@@ -6,6 +6,7 @@ import io.kotest.assertions.json.shouldContainJsonKey
 import io.kotest.assertions.json.shouldContainJsonKeyValue
 import io.kotest.assertions.json.shouldNotContainJsonKey
 import io.kotest.core.spec.style.FunSpec
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.slf4j.MDC
 import java.lang.RuntimeException
@@ -13,7 +14,7 @@ import java.lang.RuntimeException
 class SLf4jIntegrationLoggerTest : FunSpec() {
 
     companion object {
-        val logger = LoggerFactory.getLogger(SLf4jIntegrationLoggerTest::class.java)
+        val logger: Logger = LoggerFactory.getLogger(SLf4jIntegrationLoggerTest::class.java)
     }
 
     init {

@@ -1,11 +1,13 @@
 package sh.brocode.brolog
 
-class LogLevelSettings(private val rootLevel: LogLevel, private val settings: Map<String, LogLevel>) {
+class LogLevelSettings(val rootLevel: LogLevel, val settings: Map<String, LogLevel>) {
     companion object {
         fun loadFromEnv(): LogLevelSettings {
+            val rootLevelSetting = System.getenv()["BROLOG_ROOT_LEVEL"] ?: "TRACE"
+            val rootLevel = LogLevel.values().find { it.name == rootLevelSetting } ?: LogLevel.TRACE
             // TODO actually load something
             return LogLevelSettings(
-                rootLevel = LogLevel.TRACE,
+                rootLevel = rootLevel,
                 settings = emptyMap(),
             )
         }

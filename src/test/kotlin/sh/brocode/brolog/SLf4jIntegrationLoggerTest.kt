@@ -18,6 +18,10 @@ class SLf4jIntegrationLoggerTest : FunSpec() {
 
     init {
 
+        beforeTest {
+            MDC.clear()
+        }
+
         test("simple message") {
 
             val output = tapSystemOut {

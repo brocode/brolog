@@ -28,6 +28,8 @@ tasks.withType<Test> {
     outputs.upToDateWhen { false }
 }
 
+defaultTasks("clean", "test")
+
 val spotlessCheckOrFormat = tasks.register("spotlessCheckOrFormat") {
     if (project.ext.has("ciBuild")) {
         dependsOn(tasks.spotlessCheck)

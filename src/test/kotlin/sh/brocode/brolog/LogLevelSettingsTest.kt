@@ -30,5 +30,24 @@ class LogLevelSettingsTest : FunSpec() {
                 }
             }
         }
+
+        test("level by settings") {
+            val settings = LogLevelSettings(
+                rootLevel = LogLevel.ERROR,
+                settings = mapOf(
+                    "report" to LogLevel.TRACE,
+                    "sh.brocode" to LogLevel.WARN,
+                    "sh.brocode.test" to LogLevel.INFO,
+                ),
+            )
+            settings.getLoggerLevel("sh.brocode.Service") shouldBe LogLevel.WARN
+            settings.getLoggerLevel("sh.brocode.service.Service") shouldBe LogLevel.WARN
+            settings.getLoggerLevel("sh.brocode.test.Repo") shouldBe LogLevel.INFO
+            settings.getLoggerLevel("sh.brocode.test.Repo2") shouldBe LogLevel.INFO
+            settings.getLoggerLevel("sh.brocode.test.entity.Entity1") shouldBe LogLevel.INFO
+            settings.getLoggerLevel("report") shouldBe LogLevel.TRACE
+            settings.getLoggerLevel("test") shouldBe LogLevel.ERROR
+            settings.getLoggerLevel("test.test") shouldBe LogLevel.ERROR
+        }
     }
 }

@@ -13,8 +13,20 @@ class LogLevelSettings(val rootLevel: LogLevel, val settings: Map<String, LogLev
         }
     }
 
-    fun getLoggerLevel(name: String): LogLevel {
-        // TODO actually determine log level
-        return rootLevel
+    private tailrec fun getLoggerLevelFromSettings(name: String): LogLevel? {
+        val settingForName: LogLevel? = settings[name]
+        return if (settingForName != null) {
+            settingForName
+        } else {
+            val dotIndex = name.lastIndexOf(".")
+            if (dotIndex < 1) {
+                null
+            } else {
+                getLoggerLevelFromSettings(name.substring(0, dotIndex))
+            }
+        }
     }
+
+    fun getLoggerLevel(name: String): LogLevel =
+        getLoggerLevelFromSettings(name) ?: rootLevel
 }

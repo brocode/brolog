@@ -3,6 +3,7 @@ package sh.brocode.brolog
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import io.kotest.extensions.system.withEnvironment
+import io.kotest.matchers.maps.shouldContainExactly
 import io.kotest.matchers.shouldBe
 
 class LogLevelSettingsTest : FunSpec() {
@@ -48,6 +49,25 @@ class LogLevelSettingsTest : FunSpec() {
             settings.getLoggerLevel("report") shouldBe LogLevel.TRACE
             settings.getLoggerLevel("test") shouldBe LogLevel.ERROR
             settings.getLoggerLevel("test.test") shouldBe LogLevel.ERROR
+        }
+
+        test("settings from env") {
+            val settings = withEnvironment(
+                mapOf(
+                    "BROLOG_LEVEL_sh.brocode" to "warn",
+                    "BROLOG_LEVEL_sh.brocode.test" to "INFO",
+                    "BROLOG_ROOT_LEVEL" to "TRACE",
+                )
+            ) {
+                LogLevelSettings.loadFromEnv()
+            }
+
+            settings.rootLevel shouldBe LogLevel.TRACE
+
+            settings.settings shouldContainExactly mapOf(
+                "sh.brocode" to LogLevel.WARN,
+                "sh.brocode.test" to LogLevel.INFO,
+            )
         }
     }
 }

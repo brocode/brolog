@@ -1,16 +1,26 @@
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+group = "sh.brocode"
+version = "0.1-SNAPSHOT"
+
 plugins {
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.serialization") version "1.6.10"
     `java-library`
     id("com.diffplug.spotless") version "6.0.0"
+    `maven-publish`
+    signing
 }
 
 repositories {
     mavenLocal()
     mavenCentral()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 dependencies {
@@ -48,5 +58,13 @@ configure<SpotlessExtension> {
     }
     kotlinGradle {
         ktlint()
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
     }
 }

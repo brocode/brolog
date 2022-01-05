@@ -64,6 +64,15 @@ configure<SpotlessExtension> {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
+            pom {
+                url.set("https://github.com/brocode/brolog/")
+                licenses {
+                    license {
+                        name.set("The MIT License (MIT)")
+                        url.set("https://mit-license.org/")
+                    }
+                }
+            }
             from(components["java"])
         }
     }

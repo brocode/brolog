@@ -16,6 +16,6 @@ Just set the system property `brolog.simple.mode` or the environment variable `B
 
 
 ## Gradle
-```
+```kotlin
 implementation("sh.brocode:brolog:$version")
 ```

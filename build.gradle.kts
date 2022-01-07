@@ -72,6 +72,13 @@ publishing {
                         url.set("https://mit-license.org/")
                     }
                 }
+                developers {
+                    developer {
+                        id.set("p_haun")
+                        name.set("Patrick Haun")
+                        email.set("patrick@brocode.sh")
+                    }
+                }
             }
             from(components["java"])
         }

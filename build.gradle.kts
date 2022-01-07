@@ -2,7 +2,7 @@ import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "sh.brocode"
-version = "0.1-SNAPSHOT"
+version = "0.1"
 
 plugins {
     kotlin("jvm") version "1.6.10"
@@ -66,6 +66,8 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             pom {
+                name.set("brolog")
+                description.set("A simple slf4j backend")
                 url.set("https://github.com/brocode/brolog/")
                 licenses {
                     license {
@@ -79,6 +81,11 @@ publishing {
                         name.set("Patrick Haun")
                         email.set("patrick@brocode.sh")
                     }
+                }
+                scm {
+                    connection.set("scm:git:git@github.com:brocode/brolog.git")
+                    developerConnection.set("scm:git:ssh://git@github.com:brocode/brolog.git")
+                    url.set("https://github.com/brocode/brolog/")
                 }
             }
             from(components["java"])

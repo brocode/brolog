@@ -2,7 +2,7 @@ import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "sh.brocode"
-version = "0.1"
+version = "0.2-SNAPSHOT"
 
 plugins {
     kotlin("jvm") version "1.6.10"

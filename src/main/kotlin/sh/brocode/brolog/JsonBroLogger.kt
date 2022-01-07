@@ -11,8 +11,10 @@ class JsonBroLogger(
     loggerName = loggerName,
     logLevel = logLevel,
 ) {
-    @OptIn(ExperimentalSerializationApi::class)
-    private val json = Json { explicitNulls = false }
+    companion object {
+        @OptIn(ExperimentalSerializationApi::class)
+        private val json = Json { explicitNulls = false }
+    }
 
     override fun write(entry: LogEntry) {
         println(json.encodeToString(entry))

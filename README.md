@@ -19,3 +19,10 @@ Just set the system property `brolog.simple.mode` or the environment variable `B
 ```kotlin
 implementation("sh.brocode:brolog:$version")
 ```
+
+## Configuration
+Use the environment variable`BROLOG_ROOT_LEVEL` to
+configure the root log level.
+
+For logger levels define environment variables with
+the prefix `BROLOG_LEVEL_`. 

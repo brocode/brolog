@@ -26,7 +26,7 @@ java {
 
 dependencies {
     implementation("org.slf4j:slf4j-api:1.7.32")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     // implementation("org.slf4j:slf4j-nop:1.7.32")
     testImplementation("io.kotest:kotest-runner-junit5:5.1.0")
     testImplementation("io.kotest:kotest-assertions-json:5.0.2")

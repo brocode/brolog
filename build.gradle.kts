@@ -31,7 +31,7 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:5.1.0")
     testImplementation("io.kotest:kotest-assertions-json:5.0.2")
     testImplementation("io.kotest:kotest-framework-datatest:5.0.3")
-    testImplementation("com.github.stefanbirkner:system-lambda:1.2.0")
+    testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
 }
 
 tasks.withType<Test> {

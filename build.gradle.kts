@@ -30,7 +30,7 @@ dependencies {
     // implementation("org.slf4j:slf4j-nop:1.7.32")
     testImplementation("io.kotest:kotest-runner-junit5:5.3.0")
     testImplementation("io.kotest:kotest-assertions-json:5.0.2")
-    testImplementation("io.kotest:kotest-framework-datatest:5.0.3")
+    testImplementation("io.kotest:kotest-framework-datatest:5.3.0")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
 }
 

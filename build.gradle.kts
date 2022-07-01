@@ -8,7 +8,7 @@ plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.serialization") version "1.6.21"
     `java-library`
-    id("com.diffplug.spotless") version "6.6.1"
+    id("com.diffplug.spotless") version "6.8.0"
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"

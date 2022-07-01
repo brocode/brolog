@@ -6,7 +6,7 @@ version = "0.2-SNAPSHOT"
 
 plugins {
     kotlin("jvm") version "1.6.21"
-    kotlin("plugin.serialization") version "1.6.21"
+    kotlin("plugin.serialization") version "1.7.0"
     `java-library`
     id("com.diffplug.spotless") version "6.6.1"
     `maven-publish`

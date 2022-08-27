@@ -9,6 +9,7 @@ import io.kotest.core.spec.style.FunSpec
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.slf4j.MDC
+import org.slf4j.MarkerFactory
 import java.lang.RuntimeException
 
 class SLf4jIntegrationLoggerTest : FunSpec() {
@@ -51,6 +52,22 @@ class SLf4jIntegrationLoggerTest : FunSpec() {
                 output.shouldContainJsonKeyValue("$.level", "INFO")
                 output.shouldContainJsonKeyValue("$.mdc.test", "fkbr")
                 output.shouldContainJsonKeyValue("$.mdc.sxoe", "kuci")
+            }
+        }
+
+        test("info log with marker") {
+
+            val testMarker = MarkerFactory.getMarker("test")
+            val output = tapSystemOut {
+                logger.info(testMarker, "log 1")
+            }
+            println(output)
+
+            assertSoftly {
+                output.shouldContainJsonKey("$.time")
+                output.shouldContainJsonKeyValue("$.message", "log 1")
+                output.shouldContainJsonKeyValue("$.level", "INFO")
+                output.shouldContainJsonKeyValue("$.marker[0]", "test")
             }
         }
 

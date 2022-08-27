@@ -14,7 +14,7 @@ class LogLevelSettingsTest : FunSpec() {
         test("give back root level if nothing is configured") {
             val settings = LogLevelSettings(
                 rootLevel = LogLevel.WARN,
-                settings = emptyMap()
+                settings = emptyMap(),
             )
             settings.getLoggerLevel("fkbr") shouldBe LogLevel.WARN
         }
@@ -24,7 +24,7 @@ class LogLevelSettingsTest : FunSpec() {
                 LogSettingExpectation("WARN", LogLevel.WARN),
                 LogSettingExpectation("INFO", LogLevel.INFO),
                 LogSettingExpectation("DSKJFSDF", LogLevel.TRACE),
-                LogSettingExpectation(null, LogLevel.TRACE)
+                LogSettingExpectation(null, LogLevel.TRACE),
             ) { (setting, expectedLevel) ->
                 withEnvironment(mapOf("BROLOG_ROOT_LEVEL" to setting)) {
                     LogLevelSettings.loadFromEnv().rootLevel shouldBe expectedLevel
@@ -38,8 +38,8 @@ class LogLevelSettingsTest : FunSpec() {
                 settings = mapOf(
                     "report" to LogLevel.TRACE,
                     "sh.brocode" to LogLevel.WARN,
-                    "sh.brocode.test" to LogLevel.INFO
-                )
+                    "sh.brocode.test" to LogLevel.INFO,
+                ),
             )
             settings.getLoggerLevel("sh.brocode.Service") shouldBe LogLevel.WARN
             settings.getLoggerLevel("sh.brocode.service.Service") shouldBe LogLevel.WARN
@@ -56,8 +56,8 @@ class LogLevelSettingsTest : FunSpec() {
                 mapOf(
                     "BROLOG_LEVEL_sh.brocode" to "warn",
                     "BROLOG_LEVEL_sh.brocode.test" to "INFO",
-                    "BROLOG_ROOT_LEVEL" to "TRACE"
-                )
+                    "BROLOG_ROOT_LEVEL" to "TRACE",
+                ),
             ) {
                 LogLevelSettings.loadFromEnv()
             }
@@ -66,7 +66,7 @@ class LogLevelSettingsTest : FunSpec() {
 
             settings.settings shouldContainExactly mapOf(
                 "sh.brocode" to LogLevel.WARN,
-                "sh.brocode.test" to LogLevel.INFO
+                "sh.brocode.test" to LogLevel.INFO,
             )
         }
     }

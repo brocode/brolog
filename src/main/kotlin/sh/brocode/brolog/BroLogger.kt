@@ -11,7 +11,7 @@ import java.time.Instant
 
 abstract class BroLogger(
     private val name: String,
-    private val logLevel: LogLevel
+    private val logLevel: LogLevel,
 ) : Logger {
 
     override fun getName(): String = this.name
@@ -188,127 +188,177 @@ abstract class BroLogger(
 
     protected abstract fun write(entry: LogEntry)
 
-    override fun isTraceEnabled(marker: Marker?): Boolean {
-        TODO("Not yet implemented")
+    override fun isTraceEnabled(marker: Marker): Boolean {
+        return isTraceEnabled
     }
 
-    override fun trace(marker: Marker?, msg: String?) {
-        TODO("Not yet implemented")
+    override fun trace(marker: Marker, msg: String) {
+        if (logLevel.traceEnabled) {
+            write(createEntry(msg, LogLevel.TRACE, marker))
+        }
     }
 
-    override fun trace(marker: Marker?, format: String?, arg: Any?) {
-        TODO("Not yet implemented")
+    override fun trace(marker: Marker, format: String, arg: Any) {
+        if (isTraceEnabled) {
+            write(createEntry(format, LogLevel.TRACE, arrayOf(arg), marker))
+        }
     }
 
-    override fun trace(marker: Marker?, format: String?, arg1: Any?, arg2: Any?) {
-        TODO("Not yet implemented")
+    override fun trace(marker: Marker, format: String, arg1: Any, arg2: Any) {
+        if (isTraceEnabled) {
+            write(createEntry(format, LogLevel.TRACE, arrayOf(arg1, arg2), marker))
+        }
     }
 
-    override fun trace(marker: Marker?, format: String?, vararg argArray: Any?) {
-        TODO("Not yet implemented")
+    override fun trace(marker: Marker, format: String, vararg argArray: Any) {
+        if (isTraceEnabled) {
+            write(createEntry(format, LogLevel.TRACE, argArray, marker))
+        }
     }
 
-    override fun trace(marker: Marker?, msg: String?, t: Throwable?) {
-        TODO("Not yet implemented")
+    override fun trace(marker: Marker, msg: String, t: Throwable) {
+        if (isTraceEnabled) {
+            write(createEntry(msg, LogLevel.TRACE, t, marker))
+        }
     }
 
-    override fun isDebugEnabled(marker: Marker?): Boolean {
-        TODO("Not yet implemented")
+    override fun isDebugEnabled(marker: Marker): Boolean {
+        return isDebugEnabled
     }
 
-    override fun debug(marker: Marker?, msg: String?) {
-        TODO("Not yet implemented")
+    override fun debug(marker: Marker, msg: String) {
+        if (isDebugEnabled) {
+            write(createEntry(msg, LogLevel.DEBUG, marker))
+        }
     }
 
-    override fun debug(marker: Marker?, format: String?, arg: Any?) {
-        TODO("Not yet implemented")
+    override fun debug(marker: Marker, format: String, arg: Any) {
+        if (isDebugEnabled) {
+            write(createEntry(format, LogLevel.DEBUG, arrayOf(arg), marker))
+        }
     }
 
-    override fun debug(marker: Marker?, format: String?, arg1: Any?, arg2: Any?) {
-        TODO("Not yet implemented")
+    override fun debug(marker: Marker, format: String, arg1: Any, arg2: Any) {
+        if (isDebugEnabled) {
+            write(createEntry(format, LogLevel.DEBUG, arrayOf(arg1, arg2), marker))
+        }
     }
 
-    override fun debug(marker: Marker?, format: String?, vararg arguments: Any?) {
-        TODO("Not yet implemented")
+    override fun debug(marker: Marker, format: String, vararg arguments: Any) {
+        if (isDebugEnabled) {
+            write(createEntry(format, LogLevel.DEBUG, arguments, marker))
+        }
     }
 
-    override fun debug(marker: Marker?, msg: String?, t: Throwable?) {
-        TODO("Not yet implemented")
+    override fun debug(marker: Marker, msg: String, t: Throwable) {
+        if (isDebugEnabled) {
+            write(createEntry(msg, LogLevel.DEBUG, t, marker))
+        }
     }
 
-    override fun isInfoEnabled(marker: Marker?): Boolean {
-        TODO("Not yet implemented")
+    override fun isInfoEnabled(marker: Marker): Boolean {
+        return isInfoEnabled
     }
 
-    override fun info(marker: Marker?, msg: String?) {
-        TODO("Not yet implemented")
+    override fun info(marker: Marker, msg: String) {
+        if (isInfoEnabled) {
+            write(createEntry(msg, LogLevel.INFO, marker))
+        }
     }
 
-    override fun info(marker: Marker?, format: String?, arg: Any?) {
-        TODO("Not yet implemented")
+    override fun info(marker: Marker, format: String, arg: Any) {
+        if (isInfoEnabled) {
+            write(createEntry(format, LogLevel.INFO, arrayOf(arg), marker))
+        }
     }
 
-    override fun info(marker: Marker?, format: String?, arg1: Any?, arg2: Any?) {
-        TODO("Not yet implemented")
+    override fun info(marker: Marker, format: String, arg1: Any, arg2: Any) {
+        if (isInfoEnabled) {
+            write(createEntry(format, LogLevel.INFO, arrayOf(arg1, arg2), marker))
+        }
     }
 
-    override fun info(marker: Marker?, format: String?, vararg arguments: Any?) {
-        TODO("Not yet implemented")
+    override fun info(marker: Marker, format: String, vararg arguments: Any) {
+        if (isInfoEnabled) {
+            write(createEntry(format, LogLevel.INFO, arguments, marker))
+        }
     }
 
-    override fun info(marker: Marker?, msg: String?, t: Throwable?) {
-        TODO("Not yet implemented")
+    override fun info(marker: Marker, msg: String, t: Throwable) {
+        if (isInfoEnabled) {
+            write(createEntry(msg, LogLevel.INFO, t, marker))
+        }
     }
 
-    override fun isWarnEnabled(marker: Marker?): Boolean {
-        TODO("Not yet implemented")
+    override fun isWarnEnabled(marker: Marker): Boolean {
+        return isWarnEnabled
     }
 
-    override fun warn(marker: Marker?, msg: String?) {
-        TODO("Not yet implemented")
+    override fun warn(marker: Marker, msg: String) {
+        if (isWarnEnabled) {
+            write(createEntry(msg, LogLevel.WARN, marker))
+        }
     }
 
-    override fun warn(marker: Marker?, format: String?, arg: Any?) {
-        TODO("Not yet implemented")
+    override fun warn(marker: Marker, format: String, arg: Any) {
+        if (isWarnEnabled) {
+            write(createEntry(format, LogLevel.WARN, arrayOf(arg), marker))
+        }
     }
 
-    override fun warn(marker: Marker?, format: String?, arg1: Any?, arg2: Any?) {
-        TODO("Not yet implemented")
+    override fun warn(marker: Marker, format: String, arg1: Any, arg2: Any) {
+        if (isWarnEnabled) {
+            write(createEntry(format, LogLevel.WARN, arrayOf(arg1, arg2), marker))
+        }
     }
 
-    override fun warn(marker: Marker?, format: String?, vararg arguments: Any?) {
-        TODO("Not yet implemented")
+    override fun warn(marker: Marker, format: String, vararg arguments: Any) {
+        if (isWarnEnabled) {
+            write(createEntry(format, LogLevel.WARN, arguments, marker))
+        }
     }
 
-    override fun warn(marker: Marker?, msg: String?, t: Throwable?) {
-        TODO("Not yet implemented")
+    override fun warn(marker: Marker, msg: String, t: Throwable) {
+        if (isWarnEnabled) {
+            write(createEntry(msg, LogLevel.WARN, t, marker))
+        }
     }
 
-    override fun isErrorEnabled(marker: Marker?): Boolean {
-        TODO("Not yet implemented")
+    override fun isErrorEnabled(marker: Marker): Boolean {
+        return isErrorEnabled
     }
 
-    override fun error(marker: Marker?, msg: String?) {
-        TODO("Not yet implemented")
+    override fun error(marker: Marker, msg: String) {
+        if (isErrorEnabled) {
+            write(createEntry(msg, LogLevel.ERROR, marker))
+        }
     }
 
-    override fun error(marker: Marker?, format: String?, arg: Any?) {
-        TODO("Not yet implemented")
+    override fun error(marker: Marker, format: String, arg: Any) {
+        if (isErrorEnabled) {
+            write(createEntry(format, LogLevel.ERROR, arrayOf(arg), marker))
+        }
     }
 
-    override fun error(marker: Marker?, format: String?, arg1: Any?, arg2: Any?) {
-        TODO("Not yet implemented")
+    override fun error(marker: Marker, format: String, arg1: Any, arg2: Any) {
+        if (isErrorEnabled) {
+            write(createEntry(format, LogLevel.ERROR, arrayOf(arg1, arg2), marker))
+        }
     }
 
-    override fun error(marker: Marker?, format: String?, vararg arguments: Any?) {
-        TODO("Not yet implemented")
+    override fun error(marker: Marker, format: String, vararg arguments: Any) {
+        if (isErrorEnabled) {
+            write(createEntry(format, LogLevel.ERROR, arguments, marker))
+        }
     }
 
-    override fun error(marker: Marker?, msg: String?, t: Throwable?) {
-        TODO("Not yet implemented")
+    override fun error(marker: Marker, msg: String, t: Throwable) {
+        if (isErrorEnabled) {
+            write(createEntry(msg, LogLevel.ERROR, t, marker))
+        }
     }
 
-    private fun createEntry(msg: String, level: LogLevel): LogEntry {
+    private fun createEntry(msg: String, level: LogLevel, marker: Marker? = null): LogEntry {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
 
         return LogEntry(
@@ -317,11 +367,22 @@ abstract class BroLogger(
             message = msg,
             mdc = mdc,
             level = level,
-            exception = null
+            exception = null,
+            marker = marker?.toSet(),
         )
     }
 
-    private fun createEntry(format: String, level: LogLevel, argArray: Array<out Any>): LogEntry {
+    private fun Marker.toSet(): Set<String> {
+        if (!this.hasReferences()) {
+            return setOf(this.name)
+        }
+        return this.iterator()
+            .asSequence()
+            .map { it.name }
+            .toSet() + this.name
+    }
+
+    private fun createEntry(format: String, level: LogLevel, argArray: Array<out Any>, marker: Marker? = null): LogEntry {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
 
         val formattedMessage = MessageFormatter.arrayFormat(format, argArray)
@@ -334,11 +395,12 @@ abstract class BroLogger(
             message = formattedMessage.message,
             mdc = mdc,
             level = level,
-            exception = formattedException
+            exception = formattedException,
+            marker = marker?.toSet(),
         )
     }
 
-    private fun createEntry(msg: String, level: LogLevel, throwable: Throwable): LogEntry {
+    private fun createEntry(msg: String, level: LogLevel, throwable: Throwable, marker: Marker? = null): LogEntry {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
 
         val formattedException = formatException(throwable)
@@ -349,7 +411,8 @@ abstract class BroLogger(
             message = msg,
             mdc = mdc,
             level = level,
-            exception = formattedException
+            exception = formattedException,
+            marker = marker?.toSet(),
         )
     }
 

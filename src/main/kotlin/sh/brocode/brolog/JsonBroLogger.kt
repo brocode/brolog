@@ -6,10 +6,10 @@ import kotlinx.serialization.json.Json
 
 class JsonBroLogger(
     name: String,
-    logLevel: LogLevel
+    logLevel: LogLevel,
 ) : BroLogger(
     name = name,
-    logLevel = logLevel
+    logLevel = logLevel,
 ) {
     companion object {
         @OptIn(ExperimentalSerializationApi::class)

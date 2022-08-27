@@ -57,11 +57,24 @@ tasks.withType<KotlinCompile> {
 }
 
 configure<SpotlessExtension> {
+
     kotlin {
-        ktlint()
+        ktlint().editorConfigOverride(
+            mapOf(
+                "ij_kotlin_allow_trailing_comma" to "true",
+                "ij_kotlin_allow_trailing_comma_on_call_site" to "true"
+            )
+        )
+        toggleOffOn()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
     }
     kotlinGradle {
         ktlint()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
     }
 }
 

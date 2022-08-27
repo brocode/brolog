@@ -10,7 +10,7 @@ import io.kotest.matchers.string.shouldStartWith
 class BroLoggerTest : FunSpec() {
     class TestLogger : BroLogger(
         name = "test",
-        logLevel = LogLevel.TRACE
+        logLevel = LogLevel.TRACE,
     ) {
         var lastEntry: LogEntry? = null
 
@@ -31,7 +31,7 @@ class BroLoggerTest : FunSpec() {
                 { msg: String -> logger.debug(msg) } to LogLevel.DEBUG,
                 { msg: String -> logger.info(msg) } to LogLevel.INFO,
                 { msg: String -> logger.warn(msg) } to LogLevel.WARN,
-                { msg: String -> logger.error(msg) } to LogLevel.ERROR
+                { msg: String -> logger.error(msg) } to LogLevel.ERROR,
             )
 
             tests.forEach { (method, logLevel) ->
@@ -52,7 +52,7 @@ class BroLoggerTest : FunSpec() {
                 { msg: String, arg: String -> logger.debug(msg, arg) } to LogLevel.DEBUG,
                 { msg: String, arg: String -> logger.info(msg, arg) } to LogLevel.INFO,
                 { msg: String, arg: String -> logger.warn(msg, arg) } to LogLevel.WARN,
-                { msg: String, arg: String -> logger.error(msg, arg) } to LogLevel.ERROR
+                { msg: String, arg: String -> logger.error(msg, arg) } to LogLevel.ERROR,
             )
 
             tests.forEach { (method, logLevel) ->
@@ -73,7 +73,7 @@ class BroLoggerTest : FunSpec() {
                 { msg: String, arg1: String, arg2: String -> logger.debug(msg, arg1, arg2) } to LogLevel.DEBUG,
                 { msg: String, arg1: String, arg2: String -> logger.info(msg, arg1, arg2) } to LogLevel.INFO,
                 { msg: String, arg1: String, arg2: String -> logger.warn(msg, arg1, arg2) } to LogLevel.WARN,
-                { msg: String, arg1: String, arg2: String -> logger.error(msg, arg1, arg2) } to LogLevel.ERROR
+                { msg: String, arg1: String, arg2: String -> logger.error(msg, arg1, arg2) } to LogLevel.ERROR,
             )
 
             tests.forEach { (method, logLevel) ->
@@ -95,7 +95,7 @@ class BroLoggerTest : FunSpec() {
                         msg,
                         arg1,
                         arg2,
-                        arg3
+                        arg3,
                     )
                 } to LogLevel.TRACE,
                 { msg: String, arg1: String, arg2: String, arg3: String ->
@@ -103,7 +103,7 @@ class BroLoggerTest : FunSpec() {
                         msg,
                         arg1,
                         arg2,
-                        arg3
+                        arg3,
                     )
                 } to LogLevel.DEBUG,
                 { msg: String, arg1: String, arg2: String, arg3: String ->
@@ -111,7 +111,7 @@ class BroLoggerTest : FunSpec() {
                         msg,
                         arg1,
                         arg2,
-                        arg3
+                        arg3,
                     )
                 } to LogLevel.INFO,
                 { msg: String, arg1: String, arg2: String, arg3: String ->
@@ -119,7 +119,7 @@ class BroLoggerTest : FunSpec() {
                         msg,
                         arg1,
                         arg2,
-                        arg3
+                        arg3,
                     )
                 } to LogLevel.WARN,
                 { msg: String, arg1: String, arg2: String, arg3: String ->
@@ -127,9 +127,9 @@ class BroLoggerTest : FunSpec() {
                         msg,
                         arg1,
                         arg2,
-                        arg3
+                        arg3,
                     )
-                } to LogLevel.ERROR
+                } to LogLevel.ERROR,
             )
 
             tests.forEach { (method, logLevel) ->
@@ -150,7 +150,7 @@ class BroLoggerTest : FunSpec() {
                 { msg: String, t: Throwable -> logger.debug(msg, t) } to LogLevel.DEBUG,
                 { msg: String, t: Throwable -> logger.info(msg, t) } to LogLevel.INFO,
                 { msg: String, t: Throwable -> logger.warn(msg, t) } to LogLevel.WARN,
-                { msg: String, t: Throwable -> logger.error(msg, t) } to LogLevel.ERROR
+                { msg: String, t: Throwable -> logger.error(msg, t) } to LogLevel.ERROR,
             )
 
             tests.forEach { (method, logLevel) ->
@@ -171,7 +171,7 @@ class BroLoggerTest : FunSpec() {
                 { msg: String, arg1: String, t: Throwable -> logger.debug(msg, arg1, t) } to LogLevel.DEBUG,
                 { msg: String, arg1: String, t: Throwable -> logger.info(msg, arg1, t) } to LogLevel.INFO,
                 { msg: String, arg1: String, t: Throwable -> logger.warn(msg, arg1, t) } to LogLevel.WARN,
-                { msg: String, arg1: String, t: Throwable -> logger.error(msg, arg1, t) } to LogLevel.ERROR
+                { msg: String, arg1: String, t: Throwable -> logger.error(msg, arg1, t) } to LogLevel.ERROR,
             )
 
             tests.forEach { (method, logLevel) ->

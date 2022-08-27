@@ -5,31 +5,31 @@ enum class LogLevel(
     val debugEnabled: Boolean = false,
     val infoEnabled: Boolean = false,
     val warnEnabled: Boolean = false,
-    val errorEnabled: Boolean = false
+    val errorEnabled: Boolean = false,
 ) {
     TRACE(
         traceEnabled = true,
         debugEnabled = true,
         infoEnabled = true,
         warnEnabled = true,
-        errorEnabled = true
+        errorEnabled = true,
     ),
     DEBUG(
         debugEnabled = true,
         infoEnabled = true,
         warnEnabled = true,
-        errorEnabled = true
+        errorEnabled = true,
     ),
     INFO(
         infoEnabled = true,
         warnEnabled = true,
-        errorEnabled = true
+        errorEnabled = true,
     ),
     WARN(
         warnEnabled = true,
-        errorEnabled = true
+        errorEnabled = true,
     ),
     ERROR(
-        errorEnabled = true
+        errorEnabled = true,
     ),
 }

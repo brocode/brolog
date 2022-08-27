@@ -8,6 +8,7 @@ data class LogEntry(
     val logger: String,
     val message: String,
     val mdc: Map<String, String?>?,
+    val marker: Set<String>?,
     val level: LogLevel,
-    val exception: String?
+    val exception: String?,
 )

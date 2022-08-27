@@ -15,7 +15,7 @@ class LogLevelSettings(val rootLevel: LogLevel, val settings: Map<String, LogLev
 
             return LogLevelSettings(
                 rootLevel = rootLevel,
-                settings = loggerSettings
+                settings = loggerSettings,
             )
         }
     }

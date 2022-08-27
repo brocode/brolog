@@ -37,7 +37,7 @@ class BroMDCAdapterTest : FunSpec() {
 
             adapter.copyOfContextMap shouldBe mapOf(
                 "fkbr" to "sxoe",
-                "kuci" to "sxoe"
+                "kuci" to "sxoe",
             )
         }
     }

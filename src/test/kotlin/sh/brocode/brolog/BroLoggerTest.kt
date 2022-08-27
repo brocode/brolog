@@ -201,9 +201,13 @@ class BroLoggerTest : FunSpec() {
                     message shouldBe ""
                     level shouldBe logLevel
                 }
-                builder.log("bla")
+                builder
+                    .setMessage("{} blubb {}")
+                    .addArgument("meep")
+                    .addArgument("fkbr")
+                    .log()
                 with(logger.lastEntry.shouldNotBeNull()) {
-                    message shouldBe "bla"
+                    message shouldBe "meep blubb fkbr"
                     level shouldBe logLevel
                 }
             }

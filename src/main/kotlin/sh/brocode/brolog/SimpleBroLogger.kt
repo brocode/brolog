@@ -2,10 +2,10 @@ package sh.brocode.brolog
 
 class SimpleBroLogger(
     loggerName: String,
-    logLevel: LogLevel,
+    logLevel: LogLevel
 ) : BroLogger(
-    loggerName = loggerName,
-    logLevel = logLevel,
+    name = loggerName,
+    logLevel = logLevel
 ) {
 
     override fun write(entry: LogEntry) {

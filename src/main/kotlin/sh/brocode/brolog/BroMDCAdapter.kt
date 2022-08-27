@@ -1,6 +1,7 @@
 package sh.brocode.brolog
 
 import org.slf4j.spi.MDCAdapter
+import java.util.Deque
 
 class BroMDCAdapter : MDCAdapter {
 
@@ -49,5 +50,21 @@ class BroMDCAdapter : MDCAdapter {
         } else {
             content.set(LinkedHashMap(contextMap))
         }
+    }
+
+    override fun pushByKey(key: String?, value: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun popByKey(key: String?): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun getCopyOfDequeByKey(key: String?): Deque<String> {
+        TODO("Not yet implemented")
+    }
+
+    override fun clearDequeByKey(key: String?) {
+        TODO("Not yet implemented")
     }
 }

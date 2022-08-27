@@ -5,11 +5,11 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class JsonBroLogger(
-    loggerName: String,
-    logLevel: LogLevel,
+    name: String,
+    logLevel: LogLevel
 ) : BroLogger(
-    loggerName = loggerName,
-    logLevel = logLevel,
+    name = name,
+    logLevel = logLevel
 ) {
     companion object {
         @OptIn(ExperimentalSerializationApi::class)

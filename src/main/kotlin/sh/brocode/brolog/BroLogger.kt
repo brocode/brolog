@@ -1,7 +1,8 @@
 package sh.brocode.brolog
 
+import org.slf4j.Logger
 import org.slf4j.MDC
-import org.slf4j.helpers.MarkerIgnoringBase
+import org.slf4j.Marker
 import org.slf4j.helpers.MessageFormatter
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
@@ -9,13 +10,11 @@ import java.nio.charset.StandardCharsets
 import java.time.Instant
 
 abstract class BroLogger(
-    loggerName: String,
-    private val logLevel: LogLevel,
-) : MarkerIgnoringBase() {
+    private val name: String,
+    private val logLevel: LogLevel
+) : Logger {
 
-    init {
-        super.name = loggerName
-    }
+    override fun getName(): String = this.name
 
     override fun isTraceEnabled(): Boolean {
         return logLevel.traceEnabled
@@ -189,6 +188,126 @@ abstract class BroLogger(
 
     protected abstract fun write(entry: LogEntry)
 
+    override fun isTraceEnabled(marker: Marker?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun trace(marker: Marker?, msg: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun trace(marker: Marker?, format: String?, arg: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun trace(marker: Marker?, format: String?, arg1: Any?, arg2: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun trace(marker: Marker?, format: String?, vararg argArray: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun trace(marker: Marker?, msg: String?, t: Throwable?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun isDebugEnabled(marker: Marker?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun debug(marker: Marker?, msg: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun debug(marker: Marker?, format: String?, arg: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun debug(marker: Marker?, format: String?, arg1: Any?, arg2: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun debug(marker: Marker?, format: String?, vararg arguments: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun debug(marker: Marker?, msg: String?, t: Throwable?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun isInfoEnabled(marker: Marker?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun info(marker: Marker?, msg: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun info(marker: Marker?, format: String?, arg: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun info(marker: Marker?, format: String?, arg1: Any?, arg2: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun info(marker: Marker?, format: String?, vararg arguments: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun info(marker: Marker?, msg: String?, t: Throwable?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun isWarnEnabled(marker: Marker?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun warn(marker: Marker?, msg: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun warn(marker: Marker?, format: String?, arg: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun warn(marker: Marker?, format: String?, arg1: Any?, arg2: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun warn(marker: Marker?, format: String?, vararg arguments: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun warn(marker: Marker?, msg: String?, t: Throwable?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun isErrorEnabled(marker: Marker?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun error(marker: Marker?, msg: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun error(marker: Marker?, format: String?, arg: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun error(marker: Marker?, format: String?, arg1: Any?, arg2: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun error(marker: Marker?, format: String?, vararg arguments: Any?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun error(marker: Marker?, msg: String?, t: Throwable?) {
+        TODO("Not yet implemented")
+    }
+
     private fun createEntry(msg: String, level: LogLevel): LogEntry {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
 
@@ -198,7 +317,7 @@ abstract class BroLogger(
             message = msg,
             mdc = mdc,
             level = level,
-            exception = null,
+            exception = null
         )
     }
 
@@ -215,7 +334,7 @@ abstract class BroLogger(
             message = formattedMessage.message,
             mdc = mdc,
             level = level,
-            exception = formattedException,
+            exception = formattedException
         )
     }
 
@@ -230,7 +349,7 @@ abstract class BroLogger(
             message = msg,
             mdc = mdc,
             level = level,
-            exception = formattedException,
+            exception = formattedException
         )
     }
 

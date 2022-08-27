@@ -18,12 +18,12 @@ class BroLoggerFactory : ILoggerFactory {
         return if (simpleMode) {
             SimpleBroLogger(
                 loggerName = name,
-                logLevel = level,
+                logLevel = level
             )
         } else {
             JsonBroLogger(
-                loggerName = name,
-                logLevel = level,
+                name = name,
+                logLevel = level
             )
         }
     }

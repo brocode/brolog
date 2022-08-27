@@ -9,5 +9,5 @@ data class LogEntry(
     val message: String,
     val mdc: Map<String, String?>?,
     val level: LogLevel,
-    val exception: String?,
+    val exception: String?
 )

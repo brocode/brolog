@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val slf4jVersion = "2.0.0"
 
 group = "sh.brocode"
-version = "0.2"
+version = "0.3-SNAPSHOT"
 
 plugins {
     kotlin("jvm") version "1.7.10"

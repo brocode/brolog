@@ -1,6 +1,7 @@
 package sh.brocode.brolog
 import org.slf4j.ILoggerFactory
 import org.slf4j.IMarkerFactory
+import org.slf4j.helpers.BasicMDCAdapter
 import org.slf4j.helpers.BasicMarkerFactory
 import org.slf4j.spi.MDCAdapter
 import org.slf4j.spi.SLF4JServiceProvider
@@ -13,7 +14,7 @@ class BrologProvider : SLF4JServiceProvider {
     }
 
     private val markerFactory: IMarkerFactory = BasicMarkerFactory()
-    private val mdcAdapter: MDCAdapter = BroMDCAdapter()
+    private val mdcAdapter: MDCAdapter = BasicMDCAdapter()
     private val broLoggerFactory: ILoggerFactory = BroLoggerFactory()
 
     override fun getLoggerFactory(): ILoggerFactory = broLoggerFactory

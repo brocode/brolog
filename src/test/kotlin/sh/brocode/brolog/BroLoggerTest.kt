@@ -185,5 +185,28 @@ class BroLoggerTest : FunSpec() {
                 }
             }
         }
+
+        test("logging event") {
+            val tests = mapOf(
+                logger.atTrace() to LogLevel.TRACE,
+                logger.atDebug() to LogLevel.DEBUG,
+                logger.atInfo() to LogLevel.INFO,
+                logger.atWarn() to LogLevel.WARN,
+                logger.atError() to LogLevel.ERROR,
+            )
+
+            tests.forEach { (builder, logLevel) ->
+                builder.log()
+                with(logger.lastEntry.shouldNotBeNull()) {
+                    message shouldBe ""
+                    level shouldBe logLevel
+                }
+                builder.log("bla")
+                with(logger.lastEntry.shouldNotBeNull()) {
+                    message shouldBe "bla"
+                    level shouldBe logLevel
+                }
+            }
+        }
     }
 }

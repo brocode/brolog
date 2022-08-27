@@ -407,12 +407,12 @@ abstract class BroLogger(
         return LogEntry(
             logger = name,
             time = Instant.ofEpochMilli(loggingEvent.timeStamp).toString(),
-            message = formattedMessage.message,
+            message = formattedMessage.message ?: "",
             mdc = mdc,
             level = loggingEvent.level.toLevel(),
             exception = formattedException,
-            marker = loggingEvent.markers.flatMap { it.toSet() }.toSet(),
-            keyValues = loggingEvent.keyValuePairs.associate { it.key to it.value.toString() },
+            marker = loggingEvent.markers?.flatMap { it.toSet() }?.toSet(),
+            keyValues = loggingEvent.keyValuePairs?.associate { it.key to it.value.toString() },
         )
     }
 

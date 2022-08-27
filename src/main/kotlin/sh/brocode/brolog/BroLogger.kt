@@ -3,7 +3,10 @@ package sh.brocode.brolog
 import org.slf4j.Logger
 import org.slf4j.MDC
 import org.slf4j.Marker
+import org.slf4j.event.Level
+import org.slf4j.event.LoggingEvent
 import org.slf4j.helpers.MessageFormatter
+import org.slf4j.spi.LoggingEventAware
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.nio.charset.StandardCharsets
@@ -12,7 +15,7 @@ import java.time.Instant
 abstract class BroLogger(
     private val name: String,
     private val logLevel: LogLevel,
-) : Logger {
+) : Logger, LoggingEventAware {
 
     override fun getName(): String = this.name
 
@@ -358,6 +361,18 @@ abstract class BroLogger(
         }
     }
 
+    override fun log(event: LoggingEvent) {
+        val log: Boolean =
+            event.level == Level.TRACE && isTraceEnabled ||
+                event.level == Level.DEBUG && isDebugEnabled ||
+                event.level == Level.INFO && isInfoEnabled ||
+                event.level == Level.WARN && isWarnEnabled ||
+                event.level == Level.ERROR && isErrorEnabled
+        if (log) {
+            write(createEntry(event))
+        }
+    }
+
     private fun createEntry(msg: String, level: LogLevel, marker: Marker? = null): LogEntry {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
 
@@ -380,6 +395,35 @@ abstract class BroLogger(
             .asSequence()
             .map { it.name }
             .toSet() + this.name
+    }
+
+    private fun createEntry(loggingEvent: LoggingEvent): LogEntry {
+        val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
+
+        val formattedMessage = MessageFormatter.arrayFormat(loggingEvent.message, loggingEvent.argumentArray)
+        val throwable: Throwable? = formattedMessage.throwable ?: loggingEvent.throwable
+        val formattedException = throwable?.let(::formatException)
+
+        return LogEntry(
+            logger = name,
+            time = Instant.ofEpochMilli(loggingEvent.timeStamp).toString(),
+            message = formattedMessage.message,
+            mdc = mdc,
+            level = loggingEvent.level.toLevel(),
+            exception = formattedException,
+            marker = loggingEvent.markers.flatMap { it.toSet() }.toSet(),
+            keyValues = loggingEvent.keyValuePairs.associate { it.key to it.value.toString() },
+        )
+    }
+
+    private fun Level.toLevel(): LogLevel {
+        return when (this) {
+            Level.DEBUG -> LogLevel.DEBUG
+            Level.ERROR -> LogLevel.ERROR
+            Level.WARN -> LogLevel.WARN
+            Level.INFO -> LogLevel.INFO
+            Level.TRACE -> LogLevel.TRACE
+        }
     }
 
     private fun createEntry(format: String, level: LogLevel, argArray: Array<out Any>, marker: Marker? = null): LogEntry {

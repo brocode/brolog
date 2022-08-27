@@ -61,13 +61,37 @@ class SLf4jIntegrationLoggerTest : FunSpec() {
             val output = tapSystemOut {
                 logger.info(testMarker, "log 1")
             }
-            println(output)
 
             assertSoftly {
                 output.shouldContainJsonKey("$.time")
                 output.shouldContainJsonKeyValue("$.message", "log 1")
                 output.shouldContainJsonKeyValue("$.level", "INFO")
                 output.shouldContainJsonKeyValue("$.marker[0]", "test")
+            }
+        }
+
+        test("test fluent") {
+
+            val testMarker = MarkerFactory.getMarker("test")
+            val test2Marker = MarkerFactory.getMarker("test2")
+            val output = tapSystemOut {
+                logger
+                    .atInfo()
+                    .addMarker(testMarker)
+                    .addMarker(test2Marker)
+                    .addKeyValue("test_key", "test_value")
+                    .addKeyValue("number", 1)
+                    .log("log 1")
+            }
+
+            assertSoftly {
+                output.shouldContainJsonKey("$.time")
+                output.shouldContainJsonKeyValue("$.message", "log 1")
+                output.shouldContainJsonKeyValue("$.level", "INFO")
+                output.shouldContainJsonKeyValue("$.marker[0]", "test")
+                output.shouldContainJsonKeyValue("$.marker[1]", "test2")
+                output.shouldContainJsonKeyValue("$.keyValues.test_key", "test_value")
+                output.shouldContainJsonKeyValue("$.keyValues.number", "1")
             }
         }
 

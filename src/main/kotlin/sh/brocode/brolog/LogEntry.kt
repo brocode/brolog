@@ -11,4 +11,5 @@ data class LogEntry(
     val marker: Set<String>?,
     val level: LogLevel,
     val exception: String?,
+    val keyValues: Map<String, String>? = null,
 )

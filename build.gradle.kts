@@ -24,6 +24,8 @@ repositories {
 java {
     withJavadocJar()
     withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 dependencies {
@@ -54,6 +56,9 @@ val spotlessCheckOrFormat = tasks.register("spotlessCheckOrFormat") {
 
 tasks.withType<KotlinCompile> {
     dependsOn(spotlessCheckOrFormat)
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
 
 configure<SpotlessExtension> {

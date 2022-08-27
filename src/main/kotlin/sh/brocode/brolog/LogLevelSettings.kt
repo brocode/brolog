@@ -5,13 +5,13 @@ private const val LEVEL_PREFIX = "BROLOG_LEVEL_"
 class LogLevelSettings(val rootLevel: LogLevel, val settings: Map<String, LogLevel>) {
     companion object {
         fun loadFromEnv(): LogLevelSettings {
-            val rootLevelSetting = (System.getenv()["BROLOG_ROOT_LEVEL"] ?: "TRACE").uppercase()
-            val rootLevel = LogLevel.values().find { it.name == rootLevelSetting } ?: LogLevel.TRACE
+            val rootLevelSetting = (System.getenv()["BROLOG_ROOT_LEVEL"] ?: "INFO").uppercase()
+            val rootLevel = LogLevel.values().find { it.name == rootLevelSetting } ?: LogLevel.INFO
 
             val loggerSettings = System.getenv()
                 .filterKeys { it.startsWith(LEVEL_PREFIX) }
                 .mapKeys { (key, _) -> key.substring(LEVEL_PREFIX.length) }
-                .mapValues { (_, value) -> LogLevel.values().find { it.name == value.uppercase() } ?: LogLevel.TRACE }
+                .mapValues { (_, value) -> LogLevel.values().find { it.name == value.uppercase() } ?: LogLevel.INFO }
 
             return LogLevelSettings(
                 rootLevel = rootLevel,

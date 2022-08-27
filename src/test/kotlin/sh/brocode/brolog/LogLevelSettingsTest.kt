@@ -23,8 +23,8 @@ class LogLevelSettingsTest : FunSpec() {
             withData(
                 LogSettingExpectation("WARN", LogLevel.WARN),
                 LogSettingExpectation("INFO", LogLevel.INFO),
-                LogSettingExpectation("DSKJFSDF", LogLevel.TRACE),
-                LogSettingExpectation(null, LogLevel.TRACE),
+                LogSettingExpectation("DSKJFSDF", LogLevel.INFO),
+                LogSettingExpectation(null, LogLevel.INFO),
             ) { (setting, expectedLevel) ->
                 withEnvironment(mapOf("BROLOG_ROOT_LEVEL" to setting)) {
                     LogLevelSettings.loadFromEnv().rootLevel shouldBe expectedLevel

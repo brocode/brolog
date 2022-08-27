@@ -26,3 +26,10 @@ configure the root log level.
 
 For logger levels define environment variables with
 the prefix `BROLOG_LEVEL_`. 
+
+
+## Release
+
+``` shell
+./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
+```

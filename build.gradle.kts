@@ -33,7 +33,7 @@ dependencies {
     // implementation("org.slf4j:slf4j-nop:$slf4jVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
-    testImplementation("io.kotest:kotest-runner-junit5:5.4.1")
+    testImplementation("io.kotest:kotest-runner-junit5:5.4.2")
     testImplementation("io.kotest:kotest-assertions-json:5.4.1")
     testImplementation("io.kotest:kotest-framework-datatest:5.4.1")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")

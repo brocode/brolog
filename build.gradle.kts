@@ -5,7 +5,7 @@ val slf4jVersion = "2.0.0"
 val kotestVersion = "5.4.2"
 
 group = "sh.brocode"
-version = "0.3"
+version = "0.4-SNAPSHOT"
 
 plugins {
     kotlin("jvm") version "1.7.10"

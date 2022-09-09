@@ -29,25 +29,25 @@ abstract class BroLogger(
         }
     }
 
-    override fun trace(format: String, arg: Any) {
+    override fun trace(format: String, arg: Any?) {
         if (isTraceEnabled) {
             write(createEntry(format, LogLevel.TRACE, arrayOf(arg)))
         }
     }
 
-    override fun trace(format: String, arg1: Any, arg2: Any) {
+    override fun trace(format: String, arg1: Any?, arg2: Any?) {
         if (isTraceEnabled) {
             write(createEntry(format, LogLevel.TRACE, arrayOf(arg1, arg2)))
         }
     }
 
-    override fun trace(format: String, vararg argArray: Any) {
+    override fun trace(format: String, vararg argArray: Any?) {
         if (isTraceEnabled) {
             write(createEntry(format, LogLevel.TRACE, argArray))
         }
     }
 
-    override fun trace(msg: String, t: Throwable) {
+    override fun trace(msg: String, t: Throwable?) {
         if (isTraceEnabled) {
             write(createEntry(msg, LogLevel.TRACE, t))
         }
@@ -63,25 +63,25 @@ abstract class BroLogger(
         }
     }
 
-    override fun debug(format: String, arg: Any) {
+    override fun debug(format: String, arg: Any?) {
         if (isDebugEnabled) {
             write(createEntry(format, LogLevel.DEBUG, arrayOf(arg)))
         }
     }
 
-    override fun debug(format: String, arg1: Any, arg2: Any) {
+    override fun debug(format: String, arg1: Any?, arg2: Any?) {
         if (isDebugEnabled) {
             write(createEntry(format, LogLevel.DEBUG, arrayOf(arg1, arg2)))
         }
     }
 
-    override fun debug(format: String, vararg argArray: Any) {
+    override fun debug(format: String, vararg argArray: Any?) {
         if (isDebugEnabled) {
             write(createEntry(format, LogLevel.DEBUG, argArray))
         }
     }
 
-    override fun debug(msg: String, t: Throwable) {
+    override fun debug(msg: String, t: Throwable?) {
         if (isDebugEnabled) {
             write(createEntry(msg, LogLevel.DEBUG, t))
         }
@@ -97,25 +97,25 @@ abstract class BroLogger(
         }
     }
 
-    override fun info(format: String, arg1: Any) {
+    override fun info(format: String, arg1: Any?) {
         if (isInfoEnabled) {
             write(createEntry(format, LogLevel.INFO, arrayOf(arg1)))
         }
     }
 
-    override fun info(format: String, arg1: Any, arg2: Any) {
+    override fun info(format: String, arg1: Any?, arg2: Any?) {
         if (isInfoEnabled) {
             write(createEntry(format, LogLevel.INFO, arrayOf(arg1, arg2)))
         }
     }
 
-    override fun info(format: String, vararg argArray: Any) {
+    override fun info(format: String, vararg argArray: Any?) {
         if (isInfoEnabled) {
             write(createEntry(format, LogLevel.INFO, argArray))
         }
     }
 
-    override fun info(msg: String, t: Throwable) {
+    override fun info(msg: String, t: Throwable?) {
         if (isInfoEnabled) {
             write(createEntry(msg, LogLevel.INFO, t))
         }
@@ -131,25 +131,25 @@ abstract class BroLogger(
         }
     }
 
-    override fun warn(format: String, arg1: Any) {
+    override fun warn(format: String, arg1: Any?) {
         if (isWarnEnabled) {
             write(createEntry(format, LogLevel.WARN, arrayOf(arg1)))
         }
     }
 
-    override fun warn(format: String, arg1: Any, arg2: Any) {
+    override fun warn(format: String, arg1: Any?, arg2: Any?) {
         if (isWarnEnabled) {
             write(createEntry(format, LogLevel.WARN, arrayOf(arg1, arg2)))
         }
     }
 
-    override fun warn(format: String, vararg argArray: Any) {
+    override fun warn(format: String, vararg argArray: Any?) {
         if (isWarnEnabled) {
             write(createEntry(format, LogLevel.WARN, argArray))
         }
     }
 
-    override fun warn(msg: String, t: Throwable) {
+    override fun warn(msg: String, t: Throwable?) {
         if (isWarnEnabled) {
             write(createEntry(msg, LogLevel.WARN, t))
         }
@@ -165,25 +165,25 @@ abstract class BroLogger(
         }
     }
 
-    override fun error(format: String, arg1: Any) {
+    override fun error(format: String, arg1: Any?) {
         if (isErrorEnabled) {
             write(createEntry(format, LogLevel.ERROR, arrayOf(arg1)))
         }
     }
 
-    override fun error(format: String, arg1: Any, arg2: Any) {
+    override fun error(format: String, arg1: Any?, arg2: Any?) {
         if (isErrorEnabled) {
             write(createEntry(format, LogLevel.ERROR, arrayOf(arg1, arg2)))
         }
     }
 
-    override fun error(format: String, vararg argArray: Any) {
+    override fun error(format: String, vararg argArray: Any?) {
         if (isErrorEnabled) {
             write(createEntry(format, LogLevel.ERROR, argArray))
         }
     }
 
-    override fun error(msg: String, t: Throwable) {
+    override fun error(msg: String, t: Throwable?) {
         if (isErrorEnabled) {
             write(createEntry(msg, LogLevel.ERROR, t))
         }
@@ -201,25 +201,25 @@ abstract class BroLogger(
         }
     }
 
-    override fun trace(marker: Marker, format: String, arg: Any) {
+    override fun trace(marker: Marker, format: String, arg: Any?) {
         if (isTraceEnabled) {
             write(createEntry(format, LogLevel.TRACE, arrayOf(arg), marker))
         }
     }
 
-    override fun trace(marker: Marker, format: String, arg1: Any, arg2: Any) {
+    override fun trace(marker: Marker, format: String, arg1: Any?, arg2: Any?) {
         if (isTraceEnabled) {
             write(createEntry(format, LogLevel.TRACE, arrayOf(arg1, arg2), marker))
         }
     }
 
-    override fun trace(marker: Marker, format: String, vararg argArray: Any) {
+    override fun trace(marker: Marker, format: String, vararg argArray: Any?) {
         if (isTraceEnabled) {
             write(createEntry(format, LogLevel.TRACE, argArray, marker))
         }
     }
 
-    override fun trace(marker: Marker, msg: String, t: Throwable) {
+    override fun trace(marker: Marker, msg: String, t: Throwable?) {
         if (isTraceEnabled) {
             write(createEntry(msg, LogLevel.TRACE, t, marker))
         }
@@ -235,25 +235,25 @@ abstract class BroLogger(
         }
     }
 
-    override fun debug(marker: Marker, format: String, arg: Any) {
+    override fun debug(marker: Marker, format: String, arg: Any?) {
         if (isDebugEnabled) {
             write(createEntry(format, LogLevel.DEBUG, arrayOf(arg), marker))
         }
     }
 
-    override fun debug(marker: Marker, format: String, arg1: Any, arg2: Any) {
+    override fun debug(marker: Marker, format: String, arg1: Any?, arg2: Any?) {
         if (isDebugEnabled) {
             write(createEntry(format, LogLevel.DEBUG, arrayOf(arg1, arg2), marker))
         }
     }
 
-    override fun debug(marker: Marker, format: String, vararg arguments: Any) {
+    override fun debug(marker: Marker, format: String, vararg arguments: Any?) {
         if (isDebugEnabled) {
             write(createEntry(format, LogLevel.DEBUG, arguments, marker))
         }
     }
 
-    override fun debug(marker: Marker, msg: String, t: Throwable) {
+    override fun debug(marker: Marker, msg: String, t: Throwable?) {
         if (isDebugEnabled) {
             write(createEntry(msg, LogLevel.DEBUG, t, marker))
         }
@@ -269,25 +269,25 @@ abstract class BroLogger(
         }
     }
 
-    override fun info(marker: Marker, format: String, arg: Any) {
+    override fun info(marker: Marker, format: String, arg: Any?) {
         if (isInfoEnabled) {
             write(createEntry(format, LogLevel.INFO, arrayOf(arg), marker))
         }
     }
 
-    override fun info(marker: Marker, format: String, arg1: Any, arg2: Any) {
+    override fun info(marker: Marker, format: String, arg1: Any?, arg2: Any?) {
         if (isInfoEnabled) {
             write(createEntry(format, LogLevel.INFO, arrayOf(arg1, arg2), marker))
         }
     }
 
-    override fun info(marker: Marker, format: String, vararg arguments: Any) {
+    override fun info(marker: Marker, format: String, vararg arguments: Any?) {
         if (isInfoEnabled) {
             write(createEntry(format, LogLevel.INFO, arguments, marker))
         }
     }
 
-    override fun info(marker: Marker, msg: String, t: Throwable) {
+    override fun info(marker: Marker, msg: String, t: Throwable?) {
         if (isInfoEnabled) {
             write(createEntry(msg, LogLevel.INFO, t, marker))
         }
@@ -303,25 +303,25 @@ abstract class BroLogger(
         }
     }
 
-    override fun warn(marker: Marker, format: String, arg: Any) {
+    override fun warn(marker: Marker, format: String, arg: Any?) {
         if (isWarnEnabled) {
             write(createEntry(format, LogLevel.WARN, arrayOf(arg), marker))
         }
     }
 
-    override fun warn(marker: Marker, format: String, arg1: Any, arg2: Any) {
+    override fun warn(marker: Marker, format: String, arg1: Any?, arg2: Any?) {
         if (isWarnEnabled) {
             write(createEntry(format, LogLevel.WARN, arrayOf(arg1, arg2), marker))
         }
     }
 
-    override fun warn(marker: Marker, format: String, vararg arguments: Any) {
+    override fun warn(marker: Marker, format: String, vararg arguments: Any?) {
         if (isWarnEnabled) {
             write(createEntry(format, LogLevel.WARN, arguments, marker))
         }
     }
 
-    override fun warn(marker: Marker, msg: String, t: Throwable) {
+    override fun warn(marker: Marker, msg: String, t: Throwable?) {
         if (isWarnEnabled) {
             write(createEntry(msg, LogLevel.WARN, t, marker))
         }
@@ -337,25 +337,25 @@ abstract class BroLogger(
         }
     }
 
-    override fun error(marker: Marker, format: String, arg: Any) {
+    override fun error(marker: Marker, format: String, arg: Any?) {
         if (isErrorEnabled) {
             write(createEntry(format, LogLevel.ERROR, arrayOf(arg), marker))
         }
     }
 
-    override fun error(marker: Marker, format: String, arg1: Any, arg2: Any) {
+    override fun error(marker: Marker, format: String, arg1: Any?, arg2: Any?) {
         if (isErrorEnabled) {
             write(createEntry(format, LogLevel.ERROR, arrayOf(arg1, arg2), marker))
         }
     }
 
-    override fun error(marker: Marker, format: String, vararg arguments: Any) {
+    override fun error(marker: Marker, format: String, vararg arguments: Any?) {
         if (isErrorEnabled) {
             write(createEntry(format, LogLevel.ERROR, arguments, marker))
         }
     }
 
-    override fun error(marker: Marker, msg: String, t: Throwable) {
+    override fun error(marker: Marker, msg: String, t: Throwable?) {
         if (isErrorEnabled) {
             write(createEntry(msg, LogLevel.ERROR, t, marker))
         }
@@ -426,7 +426,7 @@ abstract class BroLogger(
         }
     }
 
-    private fun createEntry(format: String, level: LogLevel, argArray: Array<out Any>, marker: Marker? = null): LogEntry {
+    private fun createEntry(format: String, level: LogLevel, argArray: Array<out Any?>, marker: Marker? = null): LogEntry {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
 
         val formattedMessage = MessageFormatter.arrayFormat(format, argArray)
@@ -444,10 +444,10 @@ abstract class BroLogger(
         )
     }
 
-    private fun createEntry(msg: String, level: LogLevel, throwable: Throwable, marker: Marker? = null): LogEntry {
+    private fun createEntry(msg: String, level: LogLevel, throwable: Throwable?, marker: Marker? = null): LogEntry {
         val mdc: MutableMap<String, String?>? = MDC.getCopyOfContextMap()
 
-        val formattedException = formatException(throwable)
+        val formattedException = throwable?.let(::formatException)
 
         return LogEntry(
             logger = name,

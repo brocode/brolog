@@ -1,7 +1,7 @@
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val slf4jVersion = "2.0.3"
+val slf4jVersion = "2.0.5"
 val kotestVersion = "5.4.2"
 
 group = "sh.brocode"

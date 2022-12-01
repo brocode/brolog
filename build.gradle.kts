@@ -8,7 +8,7 @@ group = "sh.brocode"
 version = "0.4-SNAPSHOT"
 
 plugins {
-    kotlin("jvm") version "1.7.20"
+    kotlin("jvm") version "1.7.22"
     kotlin("plugin.serialization") version "1.7.20"
     `java-library`
     id("com.diffplug.spotless") version "6.11.0"

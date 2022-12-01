@@ -1,17 +1,18 @@
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val slf4jVersion = "2.0.3"
-val kotestVersion = "5.4.2"
+val slf4jVersion = "2.0.5"
+val kotestVersion = "5.5.4"
 
 group = "sh.brocode"
 version = "0.4-SNAPSHOT"
 
 plugins {
-    kotlin("jvm") version "1.7.20"
-    kotlin("plugin.serialization") version "1.7.20"
+    val kotlinVersion = "1.7.22"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.serialization") version kotlinVersion
     `java-library`
-    id("com.diffplug.spotless") version "6.11.0"
+    id("com.diffplug.spotless") version "6.12.0"
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
@@ -32,7 +33,7 @@ java {
 dependencies {
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     // implementation("org.slf4j:slf4j-nop:$slf4jVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-json:$kotestVersion")

@@ -2,17 +2,17 @@ import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val slf4jVersion = "2.0.6"
-val kotestVersion = "5.5.4"
+val kotestVersion = "5.5.5"
 
 group = "sh.brocode"
 version = "0.4-SNAPSHOT"
 
 plugins {
-    val kotlinVersion = "1.8.0"
+    val kotlinVersion = "1.8.10"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     `java-library`
-    id("com.diffplug.spotless") version "6.12.0"
+    id("com.diffplug.spotless") version "6.16.0"
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
@@ -33,7 +33,7 @@ java {
 dependencies {
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     // implementation("org.slf4j:slf4j-nop:$slf4jVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
 
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-json:$kotestVersion")
@@ -44,6 +44,7 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
     outputs.upToDateWhen { false }
+    jvmArgs("--add-opens=java.base/java.util=ALL-UNNAMED")
 }
 
 defaultTasks("clean", "test")
@@ -69,8 +70,8 @@ configure<SpotlessExtension> {
         ktlint().editorConfigOverride(
             mapOf(
                 "ij_kotlin_allow_trailing_comma" to "true",
-                "ij_kotlin_allow_trailing_comma_on_call_site" to "true"
-            )
+                "ij_kotlin_allow_trailing_comma_on_call_site" to "true",
+            ),
         )
         toggleOffOn()
         trimTrailingWhitespace()

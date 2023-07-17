@@ -49,7 +49,7 @@ tasks.withType<Test> {
 
 defaultTasks("clean", "test")
 
-val spotlessCheckOrFormat = tasks.register("spotlessCheckOrFormat") {
+val spotlessCheckOrFormat by tasks.registering {
     if (project.ext.has("ciBuild")) {
         dependsOn(tasks.spotlessCheck)
     } else {

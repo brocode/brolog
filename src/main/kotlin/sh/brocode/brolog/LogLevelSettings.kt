@@ -6,12 +6,12 @@ class LogLevelSettings(val rootLevel: LogLevel, val settings: Map<String, LogLev
     companion object {
         fun loadFromEnv(): LogLevelSettings {
             val rootLevelSetting = (System.getenv()["BROLOG_ROOT_LEVEL"] ?: "INFO").uppercase()
-            val rootLevel = LogLevel.values().find { it.name == rootLevelSetting } ?: LogLevel.INFO
+            val rootLevel = LogLevel.entries.find { it.name == rootLevelSetting } ?: LogLevel.INFO
 
             val loggerSettings = System.getenv()
                 .filterKeys { it.startsWith(LEVEL_PREFIX) }
                 .mapKeys { (key, _) -> key.substring(LEVEL_PREFIX.length) }
-                .mapValues { (_, value) -> LogLevel.values().find { it.name == value.uppercase() } ?: LogLevel.INFO }
+                .mapValues { (_, value) -> LogLevel.entries.find { it.name == value.uppercase() } ?: LogLevel.INFO }
 
             return LogLevelSettings(
                 rootLevel = rootLevel,

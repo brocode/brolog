@@ -10,7 +10,7 @@ class BrologProvider : SLF4JServiceProvider {
     // to avoid constant folding by the compiler, this field must *not* be final
     companion object {
         @JvmStatic
-        public val REQUESTED_API_VERSION = "2.0.0"; // !final
+        public val REQUESTED_API_VERSION = "2.0.0" // !final
     }
 
     private val markerFactory: IMarkerFactory = BasicMarkerFactory()

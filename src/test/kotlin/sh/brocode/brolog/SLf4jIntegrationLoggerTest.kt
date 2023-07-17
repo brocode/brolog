@@ -104,7 +104,7 @@ class SLf4jIntegrationLoggerTest : FunSpec() {
         }
 
         test("log exception") {
-            val exception: RuntimeException = RuntimeException("Test")
+            val exception = RuntimeException("Test")
             exception.fillInStackTrace()
 
             val output = tapSystemOut {

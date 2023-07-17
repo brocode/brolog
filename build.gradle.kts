@@ -5,10 +5,10 @@ val slf4jVersion = "2.0.7"
 val kotestVersion = "5.6.2"
 
 group = "sh.brocode"
-version = "0.4-SNAPSHOT"
+version = "1.0-SNAPSHOT"
 
 plugins {
-    val kotlinVersion = "1.8.22"
+    val kotlinVersion = "1.9.0"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     `java-library`
@@ -26,8 +26,8 @@ repositories {
 java {
     withJavadocJar()
     withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
@@ -60,7 +60,7 @@ val spotlessCheckOrFormat = tasks.register("spotlessCheckOrFormat") {
 tasks.withType<KotlinCompile> {
     dependsOn(spotlessCheckOrFormat)
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 

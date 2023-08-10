@@ -1,11 +1,19 @@
 version: 2
 updates:
-- package-ecosystem: gradle
-  directory: "/"
-  schedule:
-    interval: monthly
-    time: "09:00"
-  groups:
-    all-dependencies:
-      patterns:
-        - "*"
+  - package-ecosystem: gradle
+    directory: "/"
+    schedule:
+      interval: monthly
+      time: "09:00"
+    groups:
+      all-dependencies-gradle:
+        patterns:
+          - "*"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      all-dependencies-actions:
+        patterns:
+          - "*"

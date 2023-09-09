@@ -3,6 +3,7 @@ package sh.brocode.brolog
 import com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
+import org.slf4j.MDC
 
 class SimpleLoggerTest : FunSpec() {
 
@@ -18,12 +19,17 @@ class SimpleLoggerTest : FunSpec() {
         test("simple log") {
 
             val output = tapSystemOut {
-                logger.warn("msg")
+                MDC.put("mdckey", "fkbr")
+                logger.atWarn()
+                    .addKeyValue("kvpkey", "sxoe")
+                    .log("msg")
             }
 
             output shouldBe """
             |# WARN test
             |msg
+            |	kvp.kvpkey: sxoe
+            |	mdc.mdckey: fkbr
             |
             """.trimMargin()
         }

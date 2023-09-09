@@ -9,15 +9,24 @@ class SimpleBroLogger(
 ) {
 
     override fun write(entry: LogEntry) {
-        val output = """
-            |# ${entry.level} ${entry.logger}
-            |${entry.message}
-        """.trimMargin()
+        val builder = StringBuilder()
+        builder.append("# ${entry.level} ${entry.logger}\n")
+        builder.append(entry.message)
 
         if (entry.exception != null) {
-            println(output + "\n" + entry.exception)
-        } else {
-            println(output)
+            builder.append("\n" + entry.exception)
         }
+        if (!entry.keyValues.isNullOrEmpty()) {
+            entry.keyValues.forEach { (key, value) ->
+                builder.append("\n\tkvp.$key: $value")
+            }
+        }
+        if (!entry.mdc.isNullOrEmpty()) {
+            entry.mdc.forEach { (key, value) ->
+                builder.append("\n\tmdc.$key: $value")
+            }
+        }
+
+        println(builder.toString())
     }
 }

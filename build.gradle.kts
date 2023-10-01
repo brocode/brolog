@@ -1,8 +1,8 @@
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val slf4jVersion = "2.0.7"
-val kotestVersion = "5.6.2"
+val slf4jVersion = "2.0.9"
+val kotestVersion = "5.7.2"
 
 group = "sh.brocode"
 version = "1.0-SNAPSHOT"
@@ -12,7 +12,7 @@ plugins {
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     `java-library`
-    id("com.diffplug.spotless") version "6.21.0"
+    id("com.diffplug.spotless") version "6.22.0"
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"

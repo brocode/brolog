@@ -8,7 +8,7 @@ group = "sh.brocode"
 version = "1.0-SNAPSHOT"
 
 plugins {
-    val kotlinVersion = "1.9.10"
+    val kotlinVersion = "1.9.20"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     `java-library`
